@@ -49,6 +49,17 @@
                     </StackPanel>
                 </StackPanel>
 
+                <StackPanel DockPanel.Dock="Bottom" Margin="16,12,16,0">
+                    <Border BorderBrush="{StaticResource DividerBrush}" BorderThickness="0,1,0,0" Margin="0,0,0,12"/>
+                    <ui:Button Content="Verifier les mises a jour" Command="{Binding CheckForUpdatesCommand}"
+                               Appearance="Secondary" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                               IsEnabled="{Binding IsCheckingForUpdate, Converter={StaticResource InverseBooleanConverter}}"/>
+                    <TextBlock Text="{Binding UpdateStatus}" Style="{StaticResource LabelText}"
+                               TextWrapping="Wrap" Margin="2,8,2,0"
+                               Visibility="{Binding UpdateStatus, Converter={StaticResource StringToVisibilityConverter}}"/>
+                    <TextBlock Text="{Binding AppVersion}" Style="{StaticResource LabelText}" Margin="2,8,2,0" HorizontalAlignment="Center"/>
+                </StackPanel>
+
                 <StackPanel Margin="0,0,0,0">
                     <TextBlock Text="GENERAL" Style="{StaticResource LabelText}" Margin="24,0,0,8" FontSize="10.5" FontWeight="SemiBold"/>
 

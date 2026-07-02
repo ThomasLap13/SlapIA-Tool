@@ -30,6 +30,8 @@
             <!-- Converters -->
             <conv:NavSelectionConverter x:Key="NavSelectionConverter"/>
             <conv:NullableUsageConverter x:Key="NullableUsageConverter"/>
+            <conv:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+            <conv:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 
             <!-- Text styles -->

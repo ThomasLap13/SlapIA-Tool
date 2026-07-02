@@ -1,6 +1,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
+using Velopack;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -8,6 +9,13 @@ namespace SlapIA.App;
 
 public partial class App : Application
 {
+    public App()
+    {
+        // Must run before anything else: handles install/uninstall/update hooks when this
+        // process was launched by the Velopack installer with special arguments.
+        VelopackApp.Build().Run();
+    }
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
