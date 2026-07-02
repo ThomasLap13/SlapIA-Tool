@@ -1,0 +1,85 @@
+<UserControl x:Class="SlapIA.App.Views.OverviewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
+
+    <UserControl.Resources>
+        <Style x:Key="InfoCard" TargetType="Border" BasedOn="{StaticResource CardBorder}"/>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <UniformGrid Columns="3" Rows="2">
+                <UniformGrid.Resources>
+                    <Thickness x:Key="CellMargin">0,0,16,16</Thickness>
+                </UniformGrid.Resources>
+
+                <Border Style="{StaticResource InfoCard}" Margin="0,0,16,16">
+                    <StackPanel>
+                        <TextBlock Text="Ordinateur" Style="{StaticResource LabelText}"/>
+                        <TextBlock Text="{Binding ComputerName}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                        <TextBlock Style="{StaticResource LabelText}">
+                            <Run Text="Utilisateur : "/><Run Text="{Binding UserName, Mode=OneWay}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource InfoCard}" Margin="0,0,16,16">
+                    <StackPanel>
+                        <TextBlock Text="Systeme d'exploitation" Style="{StaticResource LabelText}"/>
+                        <TextBlock Text="{Binding OsName}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                        <TextBlock Style="{StaticResource LabelText}">
+                            <Run Text="Version "/><Run Text="{Binding OsVersion, Mode=OneWay}"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource InfoCard}" Margin="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="Temps de fonctionnement" Style="{StaticResource LabelText}"/>
+                        <TextBlock Text="{Binding Uptime}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource InfoCard}" Margin="0,0,16,0">
+                    <StackPanel>
+                        <TextBlock Text="Processeur" Style="{StaticResource LabelText}"/>
+                        <TextBlock Text="{Binding ProcessorName}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                        <TextBlock Text="{Binding ProcessorDetails}" Style="{StaticResource LabelText}"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource InfoCard}" Margin="0,0,16,0">
+                    <StackPanel>
+                        <TextBlock Text="Memoire vive" Style="{StaticResource LabelText}"/>
+                        <TextBlock Text="{Binding MemoryTotal}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource InfoCard}">
+                    <StackPanel>
+                        <TextBlock Text="Carte graphique" Style="{StaticResource LabelText}"/>
+                        <TextBlock Text="{Binding GraphicsCardName}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <UniformGrid Columns="2" Margin="0,0,0,0">
+                <Border Style="{StaticResource InfoCard}" Margin="0,0,16,0">
+                    <StackPanel>
+                        <TextBlock Text="Disque principal" Style="{StaticResource LabelText}"/>
+                        <TextBlock Text="{Binding PrimaryDisk}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource InfoCard}">
+                    <StackPanel>
+                        <TextBlock Text="Carte mere" Style="{StaticResource LabelText}"/>
+                        <TextBlock Text="{Binding Motherboard}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

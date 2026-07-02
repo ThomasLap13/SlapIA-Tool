@@ -1,0 +1,61 @@
+<UserControl x:Class="SlapIA.App.Views.MonitoringView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <UniformGrid Grid.Row="0" Columns="4" Margin="0,0,0,16">
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="CPU" Style="{StaticResource LabelText}"/>
+                    <TextBlock Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10">
+                        <Run Text="{Binding CpuUsage, Mode=OneWay, StringFormat={}{0:0} %}"/>
+                    </TextBlock>
+                    <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding CpuUsage, Mode=OneWay}" Foreground="{StaticResource AccentBrush}"/>
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="RAM" Style="{StaticResource LabelText}"/>
+                    <TextBlock Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10">
+                        <Run Text="{Binding RamUsage, Mode=OneWay, StringFormat={}{0:0} %}"/>
+                    </TextBlock>
+                    <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding RamUsage, Mode=OneWay}" Foreground="{StaticResource ChartRamBrush}"/>
+                    <TextBlock Style="{StaticResource LabelText}" Margin="0,6,0,0">
+                        <Run Text="{Binding RamUsedGB, Mode=OneWay, StringFormat={}{0:0.#} Go /}"/>
+                        <Run Text="{Binding RamTotalGB, Mode=OneWay, StringFormat={}{0:0.#} Go}"/>
+                    </TextBlock>
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,12,0">
+                <StackPanel>
+                    <TextBlock Text="Disque" Style="{StaticResource LabelText}"/>
+                    <TextBlock Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10">
+                        <Run Text="{Binding DiskUsage, Mode=OneWay, StringFormat={}{0:0} %}"/>
+                    </TextBlock>
+                    <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding DiskUsage, Mode=OneWay}" Foreground="{StaticResource ChartDiskBrush}"/>
+                </StackPanel>
+            </Border>
+            <Border Style="{StaticResource CardBorder}">
+                <StackPanel>
+                    <TextBlock Text="GPU" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="{Binding GpuUsage, Mode=OneWay, Converter={StaticResource NullableUsageConverter}}" Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10"/>
+                    <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding GpuUsage, Mode=OneWay, FallbackValue=0, TargetNullValue=0}" Foreground="{StaticResource ChartGpuBrush}"/>
+                </StackPanel>
+            </Border>
+        </UniformGrid>
+
+        <Border Grid.Row="1" Style="{StaticResource CardBorder}">
+            <lvc:CartesianChart Series="{Binding Series}" XAxes="{Binding XAxes}" YAxes="{Binding YAxes}"
+                                 LegendPosition="Top" TooltipPosition="Hidden" AnimationsSpeed="0:0:0.15"/>
+        </Border>
+    </Grid>
+</UserControl>
