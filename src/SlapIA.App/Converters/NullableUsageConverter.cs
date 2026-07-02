@@ -7,7 +7,7 @@ namespace SlapIA.App.Converters;
 public class NullableUsageConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-        => value is float f ? $"{f:0} %" : "N/A";
+        => value is float f ? $"{f:0.0} %" : "N/A";
 
     public object ConvertBack(object value, Type targetType, object? parameter, CultureInfo culture)
         => throw new NotSupportedException();

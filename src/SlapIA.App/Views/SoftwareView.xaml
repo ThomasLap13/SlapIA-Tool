@@ -17,9 +17,23 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <ui:TextBox Grid.Column="0" Width="320" HorizontalAlignment="Left"
-                        Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
-                        PlaceholderText="Rechercher un logiciel..."/>
+            <Grid Grid.Column="0" Width="320" HorizontalAlignment="Left">
+                <TextBox Style="{StaticResource SearchBoxStyle}"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="Rechercher un logiciel..."
+                           IsHitTestVisible="False" Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource LabelText}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SearchText}" Value="">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
             <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource LabelText}">
                 <Run Text="{Binding Applications.Count, Mode=OneWay}"/><Run Text=" / "/>
                 <Run Text="{Binding TotalCount, Mode=OneWay}"/><Run Text=" logiciels"/>

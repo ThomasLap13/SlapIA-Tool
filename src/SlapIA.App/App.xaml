@@ -131,9 +131,34 @@
                 </Setter>
             </Style>
 
+            <!-- Rounded search box. A plain TextBox with our own template (not ui:TextBox) since
+                 WPF-UI's TextBox has no CornerRadius property to override for a rounder look. -->
+            <Style x:Key="SearchBoxStyle" TargetType="TextBox">
+                <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+                <Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryBrush}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush2}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Padding" Value="12,9"/>
+                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="TextBox">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="8">
+                                <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <!-- Copy icon geometry (two overlapping rounded rectangles) - vector so it always renders,
                  unlike Segoe Fluent Icons glyphs which are unavailable in some environments. -->
             <Geometry x:Key="CopyIconGeometry">M4,1 L9,1 A1,1 0 0 1 10,2 L10,3 L9,3 L9,2 L4,2 L4,7 L5,7 L5,8 L4,8 A1,1 0 0 1 3,7 L3,2 A1,1 0 0 1 4,1 Z M6,4 L11,4 A1,1 0 0 1 12,5 L12,10 A1,1 0 0 1 11,11 L6,11 A1,1 0 0 1 5,10 L5,5 A1,1 0 0 1 6,4 Z M6,5 L6,10 L11,10 L11,5 Z</Geometry>
+
+            <!-- Checkmark shown briefly on a copy button after a successful click, as feedback. -->
+            <Geometry x:Key="CheckIconGeometry">M1,6.5 L4.5,10 L11,2.5</Geometry>
 
             <!-- Software list DataGrid (explicit key so it can't collide with WPF-UI's global theming) -->
             <Style x:Key="SoftwareGridStyle" TargetType="DataGrid">

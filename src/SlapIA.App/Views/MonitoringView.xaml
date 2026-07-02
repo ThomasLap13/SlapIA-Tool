@@ -17,7 +17,7 @@
                 <StackPanel>
                     <TextBlock Text="CPU" Style="{StaticResource LabelText}"/>
                     <TextBlock Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10">
-                        <Run Text="{Binding CpuUsage, Mode=OneWay, StringFormat={}{0:0} %}"/>
+                        <Run Text="{Binding CpuUsage, Mode=OneWay, StringFormat={}{0:0.0} %}"/>
                     </TextBlock>
                     <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding CpuUsage, Mode=OneWay}" Foreground="{DynamicResource AccentBrush}"/>
                     <TextBlock Style="{StaticResource LabelText}" Margin="0,6,0,0"
@@ -28,7 +28,7 @@
                 <StackPanel>
                     <TextBlock Text="RAM" Style="{StaticResource LabelText}"/>
                     <TextBlock Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10">
-                        <Run Text="{Binding RamUsage, Mode=OneWay, StringFormat={}{0:0} %}"/>
+                        <Run Text="{Binding RamUsage, Mode=OneWay, StringFormat={}{0:0.0} %}"/>
                     </TextBlock>
                     <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding RamUsage, Mode=OneWay}" Foreground="{DynamicResource ChartRamBrush}"/>
                     <TextBlock Style="{StaticResource LabelText}" Margin="0,6,0,0">
@@ -41,7 +41,7 @@
                 <StackPanel>
                     <TextBlock Text="Disque" Style="{StaticResource LabelText}"/>
                     <TextBlock Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10">
-                        <Run Text="{Binding DiskUsage, Mode=OneWay, StringFormat={}{0:0} %}"/>
+                        <Run Text="{Binding DiskUsage, Mode=OneWay, StringFormat={}{0:0.0} %}"/>
                     </TextBlock>
                     <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding DiskUsage, Mode=OneWay}" Foreground="{DynamicResource ChartDiskBrush}"/>
                     <TextBlock Text="Activite disque" Style="{StaticResource LabelText}" Margin="0,6,0,0"/>

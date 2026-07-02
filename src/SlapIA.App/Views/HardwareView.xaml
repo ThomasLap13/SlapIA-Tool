@@ -32,7 +32,7 @@
                             <TextBlock Text="Processeur" Style="{StaticResource SectionTitleText}" Margin="0"/>
                             <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
                                     ToolTip="Copier"
-                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding ProcessorCopyText}">
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding ProcessorCopyText}" AutomationProperties.Name="CopyProcessor" Click="CopyButton_Click">
                                 <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
                             </Button>
                         </Grid>
@@ -51,7 +51,7 @@
                             <TextBlock Text="Memoire vive" Style="{StaticResource SectionTitleText}" Margin="0"/>
                             <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
                                     ToolTip="Copier"
-                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding MemoryCopyText}">
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding MemoryCopyText}" AutomationProperties.Name="CopyMemory" Click="CopyButton_Click">
                                 <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
                             </Button>
                         </Grid>
@@ -72,7 +72,7 @@
                             <TextBlock Text="Cartes graphiques" Style="{StaticResource SectionTitleText}" Margin="0"/>
                             <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
                                     ToolTip="Copier"
-                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding GraphicsCopyText}">
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding GraphicsCopyText}" AutomationProperties.Name="CopyGraphics" Click="CopyButton_Click">
                                 <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
                             </Button>
                         </Grid>
@@ -101,7 +101,7 @@
                             <TextBlock Text="Disques physiques" Style="{StaticResource SectionTitleText}" Margin="0"/>
                             <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
                                     ToolTip="Copier"
-                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding DisksCopyText}">
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding DisksCopyText}" AutomationProperties.Name="CopyDisks" Click="CopyButton_Click">
                                 <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
                             </Button>
                         </Grid>
@@ -160,7 +160,7 @@
                             <TextBlock Text="Reseau" Style="{StaticResource SectionTitleText}" Margin="0"/>
                             <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
                                     ToolTip="Copier"
-                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding NetworkCopyText}">
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding NetworkCopyText}" AutomationProperties.Name="CopyNetwork" Click="CopyButton_Click">
                                 <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
                             </Button>
                         </Grid>
@@ -190,7 +190,7 @@
                             <TextBlock Text="Carte mere / BIOS" Style="{StaticResource SectionTitleText}" Margin="0"/>
                             <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
                                     ToolTip="Copier"
-                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding MotherboardCopyText}">
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding MotherboardCopyText}" AutomationProperties.Name="CopyMotherboard" Click="CopyButton_Click">
                                 <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
                             </Button>
                         </Grid>

@@ -17,7 +17,9 @@ public partial class OverviewViewModel : ObservableObject
     [ObservableProperty] private string processorName = "-";
     [ObservableProperty] private string processorDetails = "-";
     [ObservableProperty] private string memoryTotal = "-";
+    [ObservableProperty] private string memoryDetails = "-";
     [ObservableProperty] private string graphicsCardName = "-";
+    [ObservableProperty] private string graphicsCardDetails = "-";
     [ObservableProperty] private string primaryDisk = "-";
     [ObservableProperty] private string motherboard = "-";
 
@@ -46,7 +48,13 @@ public partial class OverviewViewModel : ObservableObject
             MemoryTotal = snapshot.Memory is { } mem
                 ? $"{mem.TotalGB:0.#} Go{(mem.MemoryType is null ? "" : $" ({mem.MemoryType})")}"
                 : "-";
-            GraphicsCardName = snapshot.GraphicsCards.FirstOrDefault()?.Name ?? "-";
+            MemoryDetails = snapshot.Memory is { } memDetails
+                ? $"{memDetails.ModuleCount} barrette(s){(memDetails.SpeedMHz is { } speed ? $" @ {speed} MHz" : "")}"
+                : "-";
+
+            var primaryGpu = snapshot.GraphicsCards.FirstOrDefault();
+            GraphicsCardName = primaryGpu?.Name ?? "-";
+            GraphicsCardDetails = primaryGpu?.VramGB is { } vram ? $"{vram:0.#} Go VRAM" : "-";
 
             var mainVolume = snapshot.Volumes.FirstOrDefault();
             PrimaryDisk = mainVolume is not null

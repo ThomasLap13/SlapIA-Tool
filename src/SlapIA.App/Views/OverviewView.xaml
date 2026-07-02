@@ -55,6 +55,7 @@
                     <StackPanel>
                         <TextBlock Text="Memoire vive" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding MemoryTotal}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                        <TextBlock Text="{Binding MemoryDetails}" Style="{StaticResource LabelText}"/>
                     </StackPanel>
                 </Border>
 
@@ -62,6 +63,7 @@
                     <StackPanel>
                         <TextBlock Text="Carte graphique" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding GraphicsCardName}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
+                        <TextBlock Text="{Binding GraphicsCardDetails}" Style="{StaticResource LabelText}"/>
                     </StackPanel>
                 </Border>
             </UniformGrid>
