@@ -1,0 +1,29 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Fluent 2 (Windows 11) dark palette. AppBackground/Sidebar alpha is lowered at runtime
+         by MicaService, but only once the Mica backdrop is confirmed to be active - these
+         stay fully opaque here as the safe fallback. -->
+    <SolidColorBrush x:Key="AppBackgroundBrush" Color="#FF202020"/>
+    <SolidColorBrush x:Key="SidebarBrush" Color="#FF2C2C2C"/>
+    <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FF2D2D2D"/>
+    <SolidColorBrush x:Key="CardHoverBrush" Color="#FF363636"/>
+    <SolidColorBrush x:Key="BorderBrush2" Color="#3B3B3B"/>
+    <SolidColorBrush x:Key="DividerBrush" Color="#363636"/>
+
+    <SolidColorBrush x:Key="AccentBrush" Color="#60CDFF"/>
+    <SolidColorBrush x:Key="AccentHoverBrush" Color="#4CC2FF"/>
+    <SolidColorBrush x:Key="AccentSubtleBrush" Color="#332D4560"/>
+
+    <SolidColorBrush x:Key="ChartCpuBrush" Color="#60CDFF"/>
+    <SolidColorBrush x:Key="ChartRamBrush" Color="#6CCB5F"/>
+    <SolidColorBrush x:Key="ChartDiskBrush" Color="#FF8C4C"/>
+    <SolidColorBrush x:Key="ChartGpuBrush" Color="#B4A0FF"/>
+    <Color x:Key="ChartAxisColor">#C5C5C5</Color>
+    <Color x:Key="ChartSeparatorColor">#3B3B3B</Color>
+
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="#F5F5F5"/>
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="#C5C5C5"/>
+    <SolidColorBrush x:Key="TextOnAccentBrush" Color="#1B1B1B"/>
+
+</ResourceDictionary>

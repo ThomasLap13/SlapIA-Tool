@@ -26,6 +26,8 @@ public partial class MonitoringViewModel : ObservableObject, IDisposable
     [ObservableProperty] private float ramTotalGB;
     [ObservableProperty] private float diskUsage;
     [ObservableProperty] private float? gpuUsage;
+    [ObservableProperty] private float? cpuTemperature;
+    [ObservableProperty] private float? gpuTemperature;
     [ObservableProperty] private bool isRunning;
 
     public ISeries[] Series { get; }
@@ -88,6 +90,8 @@ public partial class MonitoringViewModel : ObservableObject, IDisposable
         RamTotalGB = sample.RamTotalGB;
         DiskUsage = sample.DiskUsagePercent;
         GpuUsage = sample.GpuUsagePercent;
+        CpuTemperature = sample.CpuTemperatureC;
+        GpuTemperature = sample.GpuTemperatureC;
 
         AddPoint(_cpuValues, sample.CpuUsagePercent);
         AddPoint(_ramValues, sample.RamUsagePercent);

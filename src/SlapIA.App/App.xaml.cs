@@ -1,14 +1,15 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
+using SlapIA.App.Services;
 using Velopack;
-using Wpf.Ui.Appearance;
-using Wpf.Ui.Controls;
 
 namespace SlapIA.App;
 
 public partial class App : Application
 {
+    public static ThemeService ThemeService { get; } = new();
+
     public App()
     {
         // Must run before anything else: handles install/uninstall/update hooks when this
@@ -23,7 +24,9 @@ public partial class App : Application
         DispatcherUnhandledException += (_, args) => LogCrash(args.Exception);
         AppDomain.CurrentDomain.UnhandledException += (_, args) => LogCrash(args.ExceptionObject as Exception);
 
-        ApplicationThemeManager.Apply(ApplicationTheme.Light, WindowBackdropType.None, updateAccent: false);
+        // Load the correct Light/Dark dictionary before any window is created, so there's no
+        // flash of the wrong theme, then start watching for live OS theme changes.
+        ThemeService.Start();
 
         var window = new MainWindow();
         MainWindow = window;

@@ -8,8 +8,9 @@
         xmlns:views="clr-namespace:SlapIA.App.Views"
         mc:Ignorable="d"
         Title="SlapIA Tool" Height="740" Width="1180" MinHeight="580" MinWidth="960"
-        Background="{StaticResource AppBackgroundBrush}"
+        Background="{DynamicResource AppBackgroundBrush}"
         FontFamily="Segoe UI Variable Text, Segoe UI"
+        Icon="Assets/app.ico"
         WindowStartupLocation="CenterScreen">
 
     <Window.Resources>
@@ -34,23 +35,23 @@
         </Grid.ColumnDefinitions>
 
         <!-- Sidebar -->
-        <Border Grid.Column="0" Background="{StaticResource SidebarBrush}" BorderBrush="{StaticResource BorderBrush2}" BorderThickness="0,0,1,0">
+        <Border Grid.Column="0" Background="{DynamicResource SidebarBrush}" BorderBrush="{DynamicResource BorderBrush2}" BorderThickness="0,0,1,0">
             <DockPanel Margin="0,4,0,16">
                 <StackPanel DockPanel.Dock="Top" Margin="20,20,20,24">
                     <StackPanel Orientation="Horizontal">
-                        <Border Width="30" Height="30" CornerRadius="7" Background="{StaticResource AccentBrush}" Margin="0,0,10,0">
-                            <TextBlock Text="S" FontSize="15" FontWeight="Bold" Foreground="{StaticResource TextOnAccentBrush}"
+                        <Border Width="30" Height="30" CornerRadius="7" Background="{DynamicResource AccentBrush}" Margin="0,0,10,0">
+                            <TextBlock Text="S" FontSize="15" FontWeight="Bold" Foreground="{DynamicResource TextOnAccentBrush}"
                                        HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="SlapIA" FontSize="17" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
-                            <TextBlock Text="Tool" FontSize="17" FontWeight="Bold" Foreground="{StaticResource AccentBrush}" Margin="0,-4,0,0"/>
+                            <TextBlock Text="SlapIA" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                            <TextBlock Text="Tool" FontSize="17" FontWeight="Bold" Foreground="{DynamicResource AccentBrush}" Margin="0,-4,0,0"/>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
 
                 <StackPanel DockPanel.Dock="Bottom" Margin="16,12,16,0">
-                    <Border BorderBrush="{StaticResource DividerBrush}" BorderThickness="0,1,0,0" Margin="0,0,0,12"/>
+                    <Border BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,1,0,0" Margin="0,0,0,12"/>
                     <ui:Button Content="Verifier les mises a jour" Command="{Binding CheckForUpdatesCommand}"
                                Appearance="Secondary" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
                                IsEnabled="{Binding IsCheckingForUpdate, Converter={StaticResource InverseBooleanConverter}}"/>
@@ -63,21 +64,21 @@
                 <StackPanel Margin="0,0,0,0">
                     <TextBlock Text="GENERAL" Style="{StaticResource LabelText}" Margin="24,0,0,8" FontSize="10.5" FontWeight="SemiBold"/>
 
-                    <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Content="Vue d'ensemble"
+                    <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Content="Vue d'ensemble" Tag="overview"
                                  IsChecked="{Binding SelectedNavKey, Converter={StaticResource NavSelectionConverter}, ConverterParameter=overview, Mode=OneWay}"
-                                 Command="{Binding NavigateOverviewCommand}" Margin="0,0,0,2"/>
+                                 Command="{Binding NavigateOverviewCommand}" Checked="NavRadioButton_Checked" Margin="0,0,0,2"/>
 
-                    <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Content="Materiel"
+                    <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Content="Materiel" Tag="hardware"
                                  IsChecked="{Binding SelectedNavKey, Converter={StaticResource NavSelectionConverter}, ConverterParameter=hardware, Mode=OneWay}"
-                                 Command="{Binding NavigateHardwareCommand}" Margin="0,0,0,2"/>
+                                 Command="{Binding NavigateHardwareCommand}" Checked="NavRadioButton_Checked" Margin="0,0,0,2"/>
 
-                    <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Content="Monitoring"
+                    <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Content="Monitoring" Tag="monitoring"
                                  IsChecked="{Binding SelectedNavKey, Converter={StaticResource NavSelectionConverter}, ConverterParameter=monitoring, Mode=OneWay}"
-                                 Command="{Binding NavigateMonitoringCommand}" Margin="0,0,0,2"/>
+                                 Command="{Binding NavigateMonitoringCommand}" Checked="NavRadioButton_Checked" Margin="0,0,0,2"/>
 
-                    <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Content="Logiciels installes"
+                    <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Content="Logiciels installes" Tag="software"
                                  IsChecked="{Binding SelectedNavKey, Converter={StaticResource NavSelectionConverter}, ConverterParameter=software, Mode=OneWay}"
-                                 Command="{Binding NavigateSoftwareCommand}" Margin="0,0,0,2"/>
+                                 Command="{Binding NavigateSoftwareCommand}" Checked="NavRadioButton_Checked" Margin="0,0,0,2"/>
                 </StackPanel>
             </DockPanel>
         </Border>

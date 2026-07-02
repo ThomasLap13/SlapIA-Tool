@@ -118,5 +118,25 @@ public partial class MainViewModel : ObservableObject
         _ = Software.LoadAsync();
     }
 
+    /// <summary>
+    /// Routes to a page by its nav key. RadioButton.IsChecked can become true through paths
+    /// that never raise Click (keyboard arrow navigation between grouped radio buttons, UI
+    /// Automation/accessibility tools), so the view's Checked event calls this directly
+    /// instead of relying solely on the Command bound to Click.
+    /// </summary>
+    public void NavigateByKey(string key)
+    {
+        if (key == SelectedNavKey)
+            return;
+
+        switch (key)
+        {
+            case "overview": NavigateOverviewCommand.Execute(null); break;
+            case "hardware": NavigateHardwareCommand.Execute(null); break;
+            case "monitoring": NavigateMonitoringCommand.Execute(null); break;
+            case "software": NavigateSoftwareCommand.Execute(null); break;
+        }
+    }
+
     public void Shutdown() => Monitoring.Dispose();
 }

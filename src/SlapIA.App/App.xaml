@@ -5,27 +5,9 @@
              xmlns:conv="clr-namespace:SlapIA.App.Converters">
     <Application.Resources>
         <ResourceDictionary>
-
-            <!-- Fluent 2 (Windows 11) light palette -->
-            <SolidColorBrush x:Key="AppBackgroundBrush" Color="#F3F3F3"/>
-            <SolidColorBrush x:Key="SidebarBrush" Color="#FAFAFA"/>
-            <SolidColorBrush x:Key="CardBackgroundBrush" Color="#FFFFFF"/>
-            <SolidColorBrush x:Key="CardHoverBrush" Color="#F5F5F5"/>
-            <SolidColorBrush x:Key="BorderBrush2" Color="#E5E5E5"/>
-            <SolidColorBrush x:Key="DividerBrush" Color="#EBEBEB"/>
-
-            <SolidColorBrush x:Key="AccentBrush" Color="#0078D4"/>
-            <SolidColorBrush x:Key="AccentHoverBrush" Color="#106EBE"/>
-            <SolidColorBrush x:Key="AccentSubtleBrush" Color="#E5F1FB"/>
-
-            <SolidColorBrush x:Key="ChartCpuBrush" Color="#0078D4"/>
-            <SolidColorBrush x:Key="ChartRamBrush" Color="#0F7B0F"/>
-            <SolidColorBrush x:Key="ChartDiskBrush" Color="#CA5010"/>
-            <SolidColorBrush x:Key="ChartGpuBrush" Color="#8764B8"/>
-
-            <SolidColorBrush x:Key="TextPrimaryBrush" Color="#1B1B1B"/>
-            <SolidColorBrush x:Key="TextSecondaryBrush" Color="#5D5D5D"/>
-            <SolidColorBrush x:Key="TextOnAccentBrush" Color="#FFFFFF"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Light.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
             <!-- Converters -->
             <conv:NavSelectionConverter x:Key="NavSelectionConverter"/>
@@ -38,42 +20,39 @@
             <Style x:Key="PageTitleText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="26"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
-                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
             </Style>
             <Style x:Key="SectionTitleText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
-                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
                 <Setter Property="Margin" Value="0,0,0,10"/>
             </Style>
             <Style x:Key="LabelText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="12"/>
-                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
             </Style>
             <Style x:Key="ValueText" TargetType="TextBlock">
                 <Setter Property="FontSize" Value="16"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
-                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
             </Style>
 
-            <!-- Card -->
+            <!-- Card: flat border, no drop shadow (avoids seam artifacts when cards are tiled edge-to-edge) -->
             <Style x:Key="CardBorder" TargetType="Border">
-                <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
-                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush2}"/>
+                <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush2}"/>
                 <Setter Property="BorderThickness" Value="1"/>
-                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="CornerRadius" Value="10"/>
                 <Setter Property="Padding" Value="18"/>
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect Color="#1A000000" BlurRadius="10" ShadowDepth="1" Direction="270" Opacity="0.35"/>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="UseLayoutRounding" Value="True"/>
             </Style>
 
             <!-- Navigation button (Fluent NavigationView-style item) -->
             <Style x:Key="NavButtonStyle" TargetType="RadioButton">
-                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
                 <Setter Property="FontSize" Value="13.5"/>
                 <Setter Property="Height" Value="40"/>
                 <Setter Property="Padding" Value="12,0"/>
@@ -85,20 +64,20 @@
                         <ControlTemplate TargetType="RadioButton">
                             <Grid>
                                 <Border x:Name="Indicator" Width="3" HorizontalAlignment="Left" Margin="0,6"
-                                        CornerRadius="2" Background="{StaticResource AccentBrush}" Opacity="0"/>
-                                <Border x:Name="Bg" CornerRadius="6" Background="Transparent" Padding="{TemplateBinding Padding}" Margin="6,0,6,0">
+                                        CornerRadius="2" Background="{DynamicResource AccentBrush}" Opacity="0"/>
+                                <Border x:Name="Bg" CornerRadius="8" Background="Transparent" Padding="{TemplateBinding Padding}" Margin="6,0,6,0">
                                     <ContentPresenter VerticalAlignment="Center"/>
                                 </Border>
                             </Grid>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsChecked" Value="True">
-                                    <Setter TargetName="Bg" Property="Background" Value="{StaticResource AccentSubtleBrush}"/>
+                                    <Setter TargetName="Bg" Property="Background" Value="{DynamicResource AccentSubtleBrush}"/>
                                     <Setter TargetName="Indicator" Property="Opacity" Value="1"/>
-                                    <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
                                     <Setter Property="FontWeight" Value="SemiBold"/>
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="Bg" Property="Background" Value="{StaticResource CardHoverBrush}"/>
+                                    <Setter TargetName="Bg" Property="Background" Value="{DynamicResource CardHoverBrush}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -111,7 +90,7 @@
                 <Setter Property="Height" Value="6"/>
                 <Setter Property="Minimum" Value="0"/>
                 <Setter Property="Maximum" Value="100"/>
-                <Setter Property="Background" Value="{StaticResource DividerBrush}"/>
+                <Setter Property="Background" Value="{DynamicResource DividerBrush}"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -127,14 +106,43 @@
                 </Setter>
             </Style>
 
+            <!-- Small round icon button (used for "copy to clipboard" actions) -->
+            <Style x:Key="IconButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="28"/>
+                <Setter Property="Height" Value="28"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Bg" CornerRadius="6" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bg" Property="Background" Value="{DynamicResource CardHoverBrush}"/>
+                                    <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Copy icon geometry (two overlapping rounded rectangles) - vector so it always renders,
+                 unlike Segoe Fluent Icons glyphs which are unavailable in some environments. -->
+            <Geometry x:Key="CopyIconGeometry">M4,1 L9,1 A1,1 0 0 1 10,2 L10,3 L9,3 L9,2 L4,2 L4,7 L5,7 L5,8 L4,8 A1,1 0 0 1 3,7 L3,2 A1,1 0 0 1 4,1 Z M6,4 L11,4 A1,1 0 0 1 12,5 L12,10 A1,1 0 0 1 11,11 L6,11 A1,1 0 0 1 5,10 L5,5 A1,1 0 0 1 6,4 Z M6,5 L6,10 L11,10 L11,5 Z</Geometry>
+
             <!-- Software list DataGrid (explicit key so it can't collide with WPF-UI's global theming) -->
             <Style x:Key="SoftwareGridStyle" TargetType="DataGrid">
-                <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
-                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
                 <Setter Property="BorderThickness" Value="0"/>
-                <Setter Property="RowBackground" Value="{StaticResource CardBackgroundBrush}"/>
-                <Setter Property="AlternatingRowBackground" Value="#FBFBFB"/>
-                <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource DividerBrush}"/>
+                <Setter Property="RowBackground" Value="{DynamicResource CardBackgroundBrush}"/>
+                <Setter Property="AlternatingRowBackground" Value="{DynamicResource CardHoverBrush}"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="{DynamicResource DividerBrush}"/>
                 <Setter Property="VerticalGridLinesBrush" Value="Transparent"/>
                 <Setter Property="GridLinesVisibility" Value="Horizontal"/>
                 <Setter Property="HeadersVisibility" Value="Column"/>
@@ -146,11 +154,11 @@
                 <Setter Property="FontSize" Value="12.5"/>
             </Style>
             <Style x:Key="SoftwareGridHeaderStyle" TargetType="DataGridColumnHeader">
-                <Setter Property="Background" Value="{StaticResource CardBackgroundBrush}"/>
-                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+                <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
                 <Setter Property="Padding" Value="10,10"/>
                 <Setter Property="BorderThickness" Value="0,0,0,1"/>
-                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush2}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush2}"/>
                 <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="FontSize" Value="12"/>
             </Style>
@@ -158,7 +166,7 @@
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Padding" Value="10,6"/>
-                <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="DataGridCell">
@@ -170,8 +178,8 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="{StaticResource AccentSubtleBrush}"/>
-                        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                        <Setter Property="Background" Value="{DynamicResource AccentSubtleBrush}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>

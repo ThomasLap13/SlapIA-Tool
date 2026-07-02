@@ -36,10 +36,14 @@ le systeme, les performances en direct et les logiciels installes sur un PC.
 | | |
 |---|---|
 | 🖥️ **Vue d'ensemble** | Carte de synthese : ordinateur, OS, uptime, CPU, RAM, GPU, disque, carte mere. |
-| 🔧 **Materiel** | Detail complet : processeur, memoire, cartes graphiques, disques physiques, volumes, cartes reseau, BIOS. |
-| 📈 **Monitoring temps reel** | Utilisation CPU / RAM / disque / GPU avec graphique en direct (rafraichi chaque seconde). |
+| 🔧 **Materiel** | Detail complet : processeur, memoire, cartes graphiques, disques physiques, volumes, cartes reseau, BIOS - avec un bouton pour copier chaque section. |
+| 📈 **Monitoring temps reel** | Utilisation et temperature CPU / RAM / disque / GPU avec graphique en direct (rafraichi chaque seconde). |
 | 📦 **Logiciels installes** | Inventaire des applications installees (nom, version, editeur, date) avec recherche instantanee. |
 | 🔄 **Mises a jour automatiques** | Bouton "Verifier les mises a jour" qui interroge les [releases GitHub](https://github.com/ThomasLap13/SlapIA-Tool/releases) et installe la nouvelle version en un clic. |
+| 🌗 **Theme clair/sombre** | Suit le theme Windows et bascule en direct (avec un fondu) si vous le changez dans les parametres. |
+
+> Les temperatures CPU necessitent generalement de lancer l'application en tant qu'administrateur ;
+> sans cela, la valeur CPU s'affiche en `N/A` (la temperature GPU, elle, fonctionne sans droits eleves).
 
 ## Installation
 

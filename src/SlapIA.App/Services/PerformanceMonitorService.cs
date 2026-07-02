@@ -1,22 +1,25 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using LibreHardwareMonitor.Hardware;
 using SlapIA.App.Models;
 using Timer = System.Timers.Timer;
 
 namespace SlapIA.App.Services;
 
 /// <summary>
-/// Samples live CPU / RAM / disk / GPU usage on a timer and raises <see cref="SampleReady"/>
-/// from a background thread. GPU sampling degrades to null when the "GPU Engine" performance
-/// counter category isn't available (older Windows versions, some driver setups).
+/// Samples live CPU / RAM / disk / GPU usage and CPU/GPU temperatures on a timer and raises
+/// <see cref="SampleReady"/> from a background thread. Any individual metric degrades to
+/// null/0 when its data source isn't available (older Windows, missing sensors, no admin
+/// rights for temperatures) rather than failing the whole sample.
 /// </summary>
 public class PerformanceMonitorService : IPerformanceMonitorService
 {
     public event EventHandler<LiveMetricsSample>? SampleReady;
 
     private readonly PerformanceCounter _cpuCounter = new("Processor", "% Processor Time", "_Total");
-    private readonly PerformanceCounter _diskCounter = new("PhysicalDisk", "% Disk Time", "_Total");
+    private readonly List<PerformanceCounter> _diskCounters;
     private readonly List<PerformanceCounter>? _gpuCounters;
+    private readonly Computer? _sensorComputer;
     private Timer? _timer;
 
     public PerformanceMonitorService()
@@ -24,10 +27,14 @@ public class PerformanceMonitorService : IPerformanceMonitorService
         // The first NextValue() call always returns 0; discard it now so the first sample
         // shown in the UI is meaningful.
         SafeNextValue(_cpuCounter);
-        SafeNextValue(_diskCounter);
+
+        _diskCounters = CreateDiskCounters();
+        _diskCounters.ForEach(c => SafeNextValue(c));
 
         _gpuCounters = TryCreateGpuCounters();
         _gpuCounters?.ForEach(c => SafeNextValue(c));
+
+        _sensorComputer = TryOpenSensorComputer();
     }
 
     public void Start(TimeSpan interval)
@@ -50,9 +57,10 @@ public class PerformanceMonitorService : IPerformanceMonitorService
     private void Sample()
     {
         var cpu = SafeNextValue(_cpuCounter);
-        var disk = Math.Min(100f, SafeNextValue(_diskCounter));
+        var disk = ReadDiskUsage();
         var (totalRamGb, usedRamGb, ramPercent) = ReadMemory();
         var gpu = ReadGpuUsage();
+        var (cpuTemp, gpuTemp) = ReadTemperatures();
 
         SampleReady?.Invoke(this, new LiveMetricsSample
         {
@@ -63,6 +71,8 @@ public class PerformanceMonitorService : IPerformanceMonitorService
             RamTotalGB = totalRamGb,
             DiskUsagePercent = disk,
             GpuUsagePercent = gpu,
+            CpuTemperatureC = cpuTemp,
+            GpuTemperatureC = gpuTemp,
         });
     }
 
@@ -70,6 +80,59 @@ public class PerformanceMonitorService : IPerformanceMonitorService
     {
         try { return counter.NextValue(); }
         catch { return 0f; }
+    }
+
+    /// <summary>
+    /// Prefers the "_Total" instance; some systems (RAID controllers, certain drivers, remote
+    /// sessions) don't expose it, so this falls back to summing every individual disk instance.
+    /// </summary>
+    private static List<PerformanceCounter> CreateDiskCounters()
+    {
+        var counters = new List<PerformanceCounter>();
+        try
+        {
+            if (!PerformanceCounterCategory.Exists("PhysicalDisk"))
+                return counters;
+
+            var category = new PerformanceCounterCategory("PhysicalDisk");
+            var instances = category.GetInstanceNames();
+
+            if (instances.Contains("_Total"))
+            {
+                counters.Add(new PerformanceCounter("PhysicalDisk", "% Disk Time", "_Total", true));
+            }
+            else
+            {
+                foreach (var instance in instances)
+                {
+                    try { counters.Add(new PerformanceCounter("PhysicalDisk", "% Disk Time", instance, true)); }
+                    catch { /* instance can disappear between enumeration and creation */ }
+                }
+            }
+        }
+        catch
+        {
+            // Leave counters empty; ReadDiskUsage() will report 0.
+        }
+        return counters;
+    }
+
+    private float ReadDiskUsage()
+    {
+        if (_diskCounters.Count == 0)
+            return 0f;
+
+        try
+        {
+            // "_Total" alone is already 0-100; summed individual instances can exceed 100 on
+            // multi-disk systems under simultaneous load, so clamp either way.
+            var value = _diskCounters.Count == 1 ? SafeNextValue(_diskCounters[0]) : _diskCounters.Average(SafeNextValue);
+            return Math.Clamp(value, 0f, 100f);
+        }
+        catch
+        {
+            return 0f;
+        }
     }
 
     private static List<PerformanceCounter>? TryCreateGpuCounters()
@@ -80,9 +143,13 @@ public class PerformanceMonitorService : IPerformanceMonitorService
                 return null;
 
             var category = new PerformanceCounterCategory("GPU Engine");
-            var instances = category.GetInstanceNames()
-                .Where(n => n.Contains("engtype_3D", StringComparison.OrdinalIgnoreCase))
-                .ToList();
+            var allInstances = category.GetInstanceNames();
+
+            // Prefer 3D engine instances (what Task Manager's headline "GPU" number reflects);
+            // fall back to every engine type if a driver doesn't report engtype_3D at all.
+            var instances = allInstances.Where(n => n.Contains("engtype_3D", StringComparison.OrdinalIgnoreCase)).ToList();
+            if (instances.Count == 0)
+                instances = allInstances.ToList();
 
             var counters = new List<PerformanceCounter>();
             foreach (var instance in instances)
@@ -114,6 +181,67 @@ public class PerformanceMonitorService : IPerformanceMonitorService
         }
     }
 
+    private static Computer? TryOpenSensorComputer()
+    {
+        try
+        {
+            var computer = new Computer
+            {
+                IsCpuEnabled = true,
+                IsGpuEnabled = true,
+            };
+            computer.Open();
+            return computer;
+        }
+        catch
+        {
+            // Sensor access can fail without administrator rights; temperatures just show N/A.
+            return null;
+        }
+    }
+
+    private (float? cpuTemp, float? gpuTemp) ReadTemperatures()
+    {
+        if (_sensorComputer is null)
+            return (null, null);
+
+        float? cpuTemp = null;
+        float? gpuTemp = null;
+
+        try
+        {
+            foreach (var hardware in _sensorComputer.Hardware)
+            {
+                hardware.Update();
+
+                var isCpu = hardware.HardwareType == HardwareType.Cpu;
+                var isGpu = hardware.HardwareType is HardwareType.GpuNvidia or HardwareType.GpuAmd or HardwareType.GpuIntel;
+                if (!isCpu && !isGpu)
+                    continue;
+
+                var temps = hardware.Sensors
+                    .Where(s => s.SensorType == SensorType.Temperature && s.Value.HasValue)
+                    .Select(s => s.Value!.Value)
+                    .ToList();
+                if (temps.Count == 0)
+                    continue;
+
+                // Package/hotspot sensors read highest and are the figure users expect ("CPU temp").
+                var highest = temps.Max();
+                if (isCpu)
+                    cpuTemp = cpuTemp is { } c ? Math.Max(c, highest) : highest;
+                else
+                    gpuTemp = gpuTemp is { } g ? Math.Max(g, highest) : highest;
+            }
+        }
+        catch
+        {
+            // Best-effort only; keep whatever was already read.
+        }
+
+        return (cpuTemp, gpuTemp);
+    }
+
     private static (float totalGb, float usedGb, float percent) ReadMemory()
     {
         var status = new MEMORYSTATUSEX();
@@ -131,7 +259,7 @@ public class PerformanceMonitorService : IPerformanceMonitorService
     {
         Stop();
         _cpuCounter.Dispose();
-        _diskCounter.Dispose();
+        _diskCounters.ForEach(c => c.Dispose());
         _gpuCounters?.ForEach(c => c.Dispose());
         GC.SuppressFinalize(this);
     }

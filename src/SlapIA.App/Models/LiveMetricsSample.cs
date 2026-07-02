@@ -9,4 +9,6 @@ public class LiveMetricsSample
     public float RamTotalGB { get; init; }
     public float DiskUsagePercent { get; init; }
     public float? GpuUsagePercent { get; init; }
+    public float? CpuTemperatureC { get; init; }
+    public float? GpuTemperatureC { get; init; }
 }

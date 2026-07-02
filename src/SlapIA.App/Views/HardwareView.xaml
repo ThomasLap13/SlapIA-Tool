@@ -7,6 +7,12 @@
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
 
+    <UserControl.Resources>
+        <Style x:Key="SectionHeaderGrid" TargetType="Grid">
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,38 +24,59 @@
                    HorizontalAlignment="Right" Margin="0,0,0,14"/>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <StackPanel DataContext="{Binding Snapshot}">
+            <StackPanel>
 
                 <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Processeur" Style="{StaticResource SectionTitleText}"/>
-                        <TextBlock Text="{Binding Processor.Name, FallbackValue=-, TargetNullValue=-}" Style="{StaticResource ValueText}"/>
+                        <Grid Style="{StaticResource SectionHeaderGrid}">
+                            <TextBlock Text="Processeur" Style="{StaticResource SectionTitleText}" Margin="0"/>
+                            <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
+                                    ToolTip="Copier"
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding ProcessorCopyText}">
+                                <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
+                            </Button>
+                        </Grid>
+                        <TextBlock Text="{Binding Snapshot.Processor.Name, FallbackValue=-, TargetNullValue=-}" Style="{StaticResource ValueText}"/>
                         <TextBlock Style="{StaticResource LabelText}" Margin="0,4,0,0">
-                            <Run Text="{Binding Processor.Cores, FallbackValue=0, Mode=OneWay}"/><Run Text=" coeurs / "/>
-                            <Run Text="{Binding Processor.LogicalProcessors, FallbackValue=0, Mode=OneWay}"/><Run Text=" threads @ "/>
-                            <Run Text="{Binding Processor.MaxClockSpeedGHz, FallbackValue=0, Mode=OneWay, StringFormat={}{0:0.00} GHz}"/>
+                            <Run Text="{Binding Snapshot.Processor.Cores, FallbackValue=0, Mode=OneWay}"/><Run Text=" coeurs / "/>
+                            <Run Text="{Binding Snapshot.Processor.LogicalProcessors, FallbackValue=0, Mode=OneWay}"/><Run Text=" threads @ "/>
+                            <Run Text="{Binding Snapshot.Processor.MaxClockSpeedGHz, FallbackValue=0, Mode=OneWay, StringFormat={}{0:0.00} GHz}"/>
                         </TextBlock>
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Memoire vive" Style="{StaticResource SectionTitleText}"/>
+                        <Grid Style="{StaticResource SectionHeaderGrid}">
+                            <TextBlock Text="Memoire vive" Style="{StaticResource SectionTitleText}" Margin="0"/>
+                            <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
+                                    ToolTip="Copier"
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding MemoryCopyText}">
+                                <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
+                            </Button>
+                        </Grid>
                         <TextBlock Style="{StaticResource ValueText}">
-                            <Run Text="{Binding Memory.TotalGB, FallbackValue=0, Mode=OneWay, StringFormat={}{0:0.#} Go}"/>
+                            <Run Text="{Binding Snapshot.Memory.TotalGB, FallbackValue=0, Mode=OneWay, StringFormat={}{0:0.#} Go}"/>
                         </TextBlock>
                         <TextBlock Style="{StaticResource LabelText}" Margin="0,4,0,0">
-                            <Run Text="{Binding Memory.ModuleCount, FallbackValue=0, Mode=OneWay}"/><Run Text=" barrette(s) - "/>
-                            <Run Text="{Binding Memory.MemoryType, FallbackValue=-, Mode=OneWay}"/><Run Text=" - "/>
-                            <Run Text="{Binding Memory.SpeedMHz, FallbackValue=-, Mode=OneWay}"/><Run Text=" MHz"/>
+                            <Run Text="{Binding Snapshot.Memory.ModuleCount, FallbackValue=0, Mode=OneWay}"/><Run Text=" barrette(s) - "/>
+                            <Run Text="{Binding Snapshot.Memory.MemoryType, FallbackValue=-, Mode=OneWay}"/><Run Text=" - "/>
+                            <Run Text="{Binding Snapshot.Memory.SpeedMHz, FallbackValue=-, Mode=OneWay}"/><Run Text=" MHz"/>
                         </TextBlock>
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Cartes graphiques" Style="{StaticResource SectionTitleText}"/>
-                        <ItemsControl ItemsSource="{Binding GraphicsCards}">
+                        <Grid Style="{StaticResource SectionHeaderGrid}">
+                            <TextBlock Text="Cartes graphiques" Style="{StaticResource SectionTitleText}" Margin="0"/>
+                            <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
+                                    ToolTip="Copier"
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding GraphicsCopyText}">
+                                <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
+                            </Button>
+                        </Grid>
+                        <ItemsControl ItemsSource="{Binding Snapshot.GraphicsCards}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type models:GraphicsCardInfo}">
                                     <Grid Margin="0,0,0,8">
@@ -70,8 +97,15 @@
 
                 <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Disques physiques" Style="{StaticResource SectionTitleText}"/>
-                        <ItemsControl ItemsSource="{Binding Disks}">
+                        <Grid Style="{StaticResource SectionHeaderGrid}">
+                            <TextBlock Text="Disques physiques" Style="{StaticResource SectionTitleText}" Margin="0"/>
+                            <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
+                                    ToolTip="Copier"
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding DisksCopyText}">
+                                <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
+                            </Button>
+                        </Grid>
+                        <ItemsControl ItemsSource="{Binding Snapshot.Disks}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type models:DiskInfo}">
                                     <Grid Margin="0,0,0,8">
@@ -95,7 +129,7 @@
                 <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
                     <StackPanel>
                         <TextBlock Text="Volumes" Style="{StaticResource SectionTitleText}"/>
-                        <ItemsControl ItemsSource="{Binding Volumes}">
+                        <ItemsControl ItemsSource="{Binding Snapshot.Volumes}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type models:VolumeInfo}">
                                     <StackPanel Margin="0,0,0,12">
@@ -122,8 +156,15 @@
 
                 <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
                     <StackPanel>
-                        <TextBlock Text="Reseau" Style="{StaticResource SectionTitleText}"/>
-                        <ItemsControl ItemsSource="{Binding NetworkAdapters}">
+                        <Grid Style="{StaticResource SectionHeaderGrid}">
+                            <TextBlock Text="Reseau" Style="{StaticResource SectionTitleText}" Margin="0"/>
+                            <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
+                                    ToolTip="Copier"
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding NetworkCopyText}">
+                                <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
+                            </Button>
+                        </Grid>
+                        <ItemsControl ItemsSource="{Binding Snapshot.NetworkAdapters}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type models:NetworkAdapterInfo}">
                                     <Grid Margin="0,0,0,8">
@@ -145,13 +186,20 @@
 
                 <Border Style="{StaticResource CardBorder}">
                     <StackPanel>
-                        <TextBlock Text="Carte mere / BIOS" Style="{StaticResource SectionTitleText}"/>
+                        <Grid Style="{StaticResource SectionHeaderGrid}">
+                            <TextBlock Text="Carte mere / BIOS" Style="{StaticResource SectionTitleText}" Margin="0"/>
+                            <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
+                                    ToolTip="Copier"
+                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding MotherboardCopyText}">
+                                <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
+                            </Button>
+                        </Grid>
                         <TextBlock Style="{StaticResource ValueText}">
-                            <Run Text="{Binding MotherboardManufacturer, FallbackValue=-, TargetNullValue=-}"/>
-                            <Run Text="{Binding MotherboardModel, FallbackValue=-, TargetNullValue=-}"/>
+                            <Run Text="{Binding Snapshot.MotherboardManufacturer, FallbackValue=-, TargetNullValue=-}"/>
+                            <Run Text="{Binding Snapshot.MotherboardModel, FallbackValue=-, TargetNullValue=-}"/>
                         </TextBlock>
                         <TextBlock Style="{StaticResource LabelText}" Margin="0,4,0,0">
-                            <Run Text="BIOS "/><Run Text="{Binding BiosVersion, FallbackValue=-, TargetNullValue=-}"/>
+                            <Run Text="BIOS "/><Run Text="{Binding Snapshot.BiosVersion, FallbackValue=-, TargetNullValue=-}"/>
                         </TextBlock>
                     </StackPanel>
                 </Border>
