@@ -54,6 +54,7 @@
                     <Border BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,1,0,0" Margin="0,0,0,12"/>
                     <ui:Button Content="Verifier les mises a jour" Command="{Binding CheckForUpdatesCommand}"
                                Appearance="Secondary" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center"
+                               Height="36" Padding="12,8" FontSize="12.5"
                                IsEnabled="{Binding IsCheckingForUpdate, Converter={StaticResource InverseBooleanConverter}}"/>
                     <TextBlock Text="{Binding UpdateStatus}" Style="{StaticResource LabelText}"
                                TextWrapping="Wrap" Margin="2,8,2,0"

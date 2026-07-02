@@ -17,7 +17,7 @@
                 </UniformGrid.Resources>
 
                 <Border Style="{StaticResource InfoCard}" Margin="0,0,16,16">
-                    <StackPanel>
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Ordinateur" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding ComputerName}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
                         <TextBlock Style="{StaticResource LabelText}">
@@ -27,7 +27,7 @@
                 </Border>
 
                 <Border Style="{StaticResource InfoCard}" Margin="0,0,16,16">
-                    <StackPanel>
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Systeme d'exploitation" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding OsName}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
                         <TextBlock Style="{StaticResource LabelText}">
@@ -37,14 +37,14 @@
                 </Border>
 
                 <Border Style="{StaticResource InfoCard}" Margin="0,0,0,16">
-                    <StackPanel>
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Temps de fonctionnement" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding Uptime}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
                     </StackPanel>
                 </Border>
 
                 <Border Style="{StaticResource InfoCard}" Margin="0,0,16,0">
-                    <StackPanel>
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Processeur" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding ProcessorName}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
                         <TextBlock Text="{Binding ProcessorDetails}" Style="{StaticResource LabelText}"/>
@@ -52,7 +52,7 @@
                 </Border>
 
                 <Border Style="{StaticResource InfoCard}" Margin="0,0,16,0">
-                    <StackPanel>
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Memoire vive" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding MemoryTotal}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
                         <TextBlock Text="{Binding MemoryDetails}" Style="{StaticResource LabelText}"/>
@@ -60,7 +60,7 @@
                 </Border>
 
                 <Border Style="{StaticResource InfoCard}">
-                    <StackPanel>
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Carte graphique" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding GraphicsCardName}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
                         <TextBlock Text="{Binding GraphicsCardDetails}" Style="{StaticResource LabelText}"/>
@@ -70,13 +70,13 @@
 
             <UniformGrid Columns="2" Margin="0,0,0,0">
                 <Border Style="{StaticResource InfoCard}" Margin="0,0,16,0">
-                    <StackPanel>
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Disque principal" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding PrimaryDisk}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
                     </StackPanel>
                 </Border>
                 <Border Style="{StaticResource InfoCard}">
-                    <StackPanel>
+                    <StackPanel VerticalAlignment="Center">
                         <TextBlock Text="Carte mere" Style="{StaticResource LabelText}"/>
                         <TextBlock Text="{Binding Motherboard}" Style="{StaticResource ValueText}" Margin="0,4,0,2"/>
                     </StackPanel>
