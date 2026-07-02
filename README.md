@@ -7,17 +7,48 @@
 Une application de bureau native, au design Fluent (Windows 11), qui affiche le materiel,
 le systeme, les performances en direct et les logiciels installes sur un PC.
 
+[![Plateforme](https://img.shields.io/badge/plateforme-Windows%2010%2F11-0078D4)](https://github.com/ThomasLap13/SlapIA-Tool)
+[![.NET](https://img.shields.io/badge/.NET-8-512BD4)](https://dotnet.microsoft.com/download/dotnet/8.0)
+[![Licence](https://img.shields.io/badge/licence-MIT-informational)](LICENSE)
+[![Derniere release](https://img.shields.io/github/v/release/ThomasLap13/SlapIA-Tool?label=derniere%20version)](https://github.com/ThomasLap13/SlapIA-Tool/releases/latest)
+
+[**Telecharger la derniere version**](https://github.com/ThomasLap13/SlapIA-Tool/releases/latest) ·
+[Signaler un bug](https://github.com/ThomasLap13/SlapIA-Tool/issues)
+
 ![Vue d'ensemble de SlapIA Tool](docs/screenshot-overview.png)
 
 </div>
 
+## Sommaire
+
+- [Fonctionnalites](#fonctionnalites)
+- [Installation](#installation)
+- [Stack technique](#stack-technique)
+- [Demarrer en developpement](#demarrer-en-developpement)
+- [Compiler l'installeur](#compiler-linstalleur-exe)
+- [Publier une mise a jour](#publier-une-nouvelle-version-mises-a-jour-automatiques)
+- [Packaging alternatif (MSIX)](#packaging-alternatif--msix-microsoft-store--winget)
+- [Structure du projet](#structure-du-projet)
+- [Confidentialite](#confidentialite)
+
 ## Fonctionnalites
 
-- **Vue d'ensemble** — carte de synthese : ordinateur, OS, uptime, CPU, RAM, GPU, disque, carte mere.
-- **Materiel** — detail complet : processeur, memoire, cartes graphiques, disques physiques, volumes, cartes reseau, BIOS.
-- **Monitoring temps reel** — utilisation CPU / RAM / disque / GPU avec graphique en direct (rafraichi chaque seconde).
-- **Logiciels installes** — inventaire des applications installees (nom, version, editeur, date d'installation) avec recherche instantanee.
-- **Mises a jour automatiques** — bouton "Verifier les mises a jour" dans la barre laterale qui interroge les [releases GitHub](https://github.com/ThomasLap13/SlapIA-Tool/releases) et installe la nouvelle version en un clic.
+| | |
+|---|---|
+| 🖥️ **Vue d'ensemble** | Carte de synthese : ordinateur, OS, uptime, CPU, RAM, GPU, disque, carte mere. |
+| 🔧 **Materiel** | Detail complet : processeur, memoire, cartes graphiques, disques physiques, volumes, cartes reseau, BIOS. |
+| 📈 **Monitoring temps reel** | Utilisation CPU / RAM / disque / GPU avec graphique en direct (rafraichi chaque seconde). |
+| 📦 **Logiciels installes** | Inventaire des applications installees (nom, version, editeur, date) avec recherche instantanee. |
+| 🔄 **Mises a jour automatiques** | Bouton "Verifier les mises a jour" qui interroge les [releases GitHub](https://github.com/ThomasLap13/SlapIA-Tool/releases) et installe la nouvelle version en un clic. |
+
+## Installation
+
+1. Telecharger `SlapIA.Tool-win-Setup.exe` depuis la [derniere release](https://github.com/ThomasLap13/SlapIA-Tool/releases/latest).
+2. Executer le fichier. L'application s'installe comme n'importe quel programme Windows
+   (raccourcis Bureau / Menu Demarrer, entree dans "Applications installees" avec
+   desinstalleur) — aucune dependance a installer au prealable.
+3. Les mises a jour suivantes se font depuis l'application elle-meme (bouton "Verifier les
+   mises a jour" dans la barre laterale).
 
 ## Stack technique
 
@@ -60,7 +91,10 @@ Cela genere dans `packaging/Releases/` :
   sur GitHub (voir ci-dessous).
 
 Installation silencieuse (utile pour les scripts de deploiement) :
-`SlapIA.Tool-win-Setup.exe --silent`
+
+```powershell
+SlapIA.Tool-win-Setup.exe --silent
+```
 
 ### Publier une nouvelle version (mises a jour automatiques)
 
@@ -93,13 +127,13 @@ Un second script produit un paquet `.msix` pour une distribution via le Microsof
 ```
 SlapIA tool/
 ├─ src/SlapIA.App/
-│  ├─ Models/        # Enregistrements de donnees (SystemSnapshot, InstalledApplication, ...)
-│  ├─ Services/       # Acces WMI, compteurs de perf, registre, auto-update (Velopack)
-│  ├─ ViewModels/      # Logique MVVM (CommunityToolkit.Mvvm)
-│  ├─ Views/          # Pages XAML (Overview, Hardware, Monitoring, Software)
-│  └─ Converters/       # Convertisseurs de binding XAML
-├─ packaging/          # Installeur Velopack, manifeste MSIX, assets
-└─ docs/              # Captures d'ecran
+│  ├─ Models/          # Enregistrements de donnees (SystemSnapshot, InstalledApplication, ...)
+│  ├─ Services/         # Acces WMI, compteurs de perf, registre, auto-update (Velopack)
+│  ├─ ViewModels/        # Logique MVVM (CommunityToolkit.Mvvm)
+│  ├─ Views/            # Pages XAML (Overview, Hardware, Monitoring, Software)
+│  └─ Converters/         # Convertisseurs de binding XAML
+├─ packaging/            # Installeur Velopack, manifeste MSIX, assets
+└─ docs/                # Captures d'ecran
 ```
 
 ## Confidentialite
@@ -109,4 +143,4 @@ vers un serveur externe (seule la verification de mise a jour contacte l'API Git
 
 ## Licence
 
-MIT
+Distribue sous licence [MIT](LICENSE).
