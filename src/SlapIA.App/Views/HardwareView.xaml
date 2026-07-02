@@ -19,9 +19,9 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <ui:Button Grid.Row="0" Content="Actualiser" Command="{Binding RefreshCommand}"
-                   Appearance="Secondary"
-                   HorizontalAlignment="Right" Margin="0,0,0,14"/>
+        <Button Grid.Row="0" Content="Actualiser" Command="{Binding RefreshCommand}"
+                Style="{StaticResource PillButtonStyle}" Height="34" Padding="14,6"
+                HorizontalAlignment="Right" Margin="0,0,0,14"/>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="0,0,12,0">
             <StackPanel>
@@ -60,6 +60,7 @@
                         </TextBlock>
                         <TextBlock Style="{StaticResource LabelText}" Margin="0,4,0,0">
                             <Run Text="{Binding Snapshot.Memory.ModuleCount, FallbackValue=0, Mode=OneWay}"/><Run Text=" barrette(s) - "/>
+                            <Run Text="{Binding Snapshot.Memory.Manufacturer, FallbackValue=-, TargetNullValue=-, Mode=OneWay}"/><Run Text=" - "/>
                             <Run Text="{Binding Snapshot.Memory.MemoryType, FallbackValue=-, Mode=OneWay}"/><Run Text=" - "/>
                             <Run Text="{Binding Snapshot.Memory.SpeedMHz, FallbackValue=-, Mode=OneWay}"/><Run Text=" MHz"/>
                         </TextBlock>
@@ -68,14 +69,7 @@
 
                 <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
                     <StackPanel>
-                        <Grid Style="{StaticResource SectionHeaderGrid}">
-                            <TextBlock Text="Cartes graphiques" Style="{StaticResource SectionTitleText}" Margin="0"/>
-                            <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
-                                    ToolTip="Copier"
-                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding GraphicsCopyText}" AutomationProperties.Name="CopyGraphics" Click="CopyButton_Click">
-                                <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
-                            </Button>
-                        </Grid>
+                        <TextBlock Text="Cartes graphiques" Style="{StaticResource SectionTitleText}"/>
                         <ItemsControl ItemsSource="{Binding Snapshot.GraphicsCards}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type models:GraphicsCardInfo}">
@@ -83,11 +77,19 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="{Binding Name}" Style="{StaticResource ValueText}" FontSize="14"/>
-                                        <TextBlock Grid.Column="1" Style="{StaticResource LabelText}">
+                                        <TextBlock Grid.Column="1" Style="{StaticResource LabelText}" VerticalAlignment="Center">
                                             <Run Text="{Binding VramGB, Mode=OneWay, StringFormat={}{0:0.#} Go VRAM}"/>
                                         </TextBlock>
+                                        <Button Grid.Column="2" Style="{StaticResource IconButtonStyle}" Width="24" Height="24" Margin="8,0,0,0"
+                                                ToolTip="Copier"
+                                                Command="{Binding DataContext.CopyToClipboardCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding Converter={StaticResource GraphicsCardCopyTextConverter}}"
+                                                AutomationProperties.Name="CopyGraphicsRow" Click="CopyButton_Click">
+                                            <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="12" Height="12"/>
+                                        </Button>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -97,14 +99,7 @@
 
                 <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
                     <StackPanel>
-                        <Grid Style="{StaticResource SectionHeaderGrid}">
-                            <TextBlock Text="Disques physiques" Style="{StaticResource SectionTitleText}" Margin="0"/>
-                            <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
-                                    ToolTip="Copier"
-                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding DisksCopyText}" AutomationProperties.Name="CopyDisks" Click="CopyButton_Click">
-                                <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
-                            </Button>
-                        </Grid>
+                        <TextBlock Text="Disques physiques" Style="{StaticResource SectionTitleText}"/>
                         <ItemsControl ItemsSource="{Binding Snapshot.Disks}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type models:DiskInfo}">
@@ -112,13 +107,21 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="{Binding Model}" Style="{StaticResource ValueText}" FontSize="14"/>
-                                        <TextBlock Grid.Column="1" Style="{StaticResource LabelText}">
+                                        <TextBlock Grid.Column="1" Style="{StaticResource LabelText}" VerticalAlignment="Center">
                                             <Run Text="{Binding SizeGB, Mode=OneWay, StringFormat={}{0:0.#} Go}"/><Run Text=" - "/>
                                             <Run Text="{Binding MediaType, Mode=OneWay}"/><Run Text=" - "/>
                                             <Run Text="{Binding InterfaceType, Mode=OneWay}"/>
                                         </TextBlock>
+                                        <Button Grid.Column="2" Style="{StaticResource IconButtonStyle}" Width="24" Height="24" Margin="8,0,0,0"
+                                                ToolTip="Copier"
+                                                Command="{Binding DataContext.CopyToClipboardCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding Converter={StaticResource DiskCopyTextConverter}}"
+                                                AutomationProperties.Name="CopyDiskRow" Click="CopyButton_Click">
+                                            <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="12" Height="12"/>
+                                        </Button>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>
@@ -156,14 +159,7 @@
 
                 <Border Style="{StaticResource CardBorder}" Margin="0,0,0,16">
                     <StackPanel>
-                        <Grid Style="{StaticResource SectionHeaderGrid}">
-                            <TextBlock Text="Reseau" Style="{StaticResource SectionTitleText}" Margin="0"/>
-                            <Button Style="{StaticResource IconButtonStyle}" HorizontalAlignment="Right"
-                                    ToolTip="Copier"
-                                    Command="{Binding CopyToClipboardCommand}" CommandParameter="{Binding NetworkCopyText}" AutomationProperties.Name="CopyNetwork" Click="CopyButton_Click">
-                                <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="13" Height="13"/>
-                            </Button>
-                        </Grid>
+                        <TextBlock Text="Reseau" Style="{StaticResource SectionTitleText}"/>
                         <ItemsControl ItemsSource="{Binding Snapshot.NetworkAdapters}">
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate DataType="{x:Type models:NetworkAdapterInfo}">
@@ -171,12 +167,20 @@
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
                                         <TextBlock Grid.Column="0" Text="{Binding Name}" Style="{StaticResource ValueText}" FontSize="14"/>
-                                        <TextBlock Grid.Column="1" Style="{StaticResource LabelText}">
+                                        <TextBlock Grid.Column="1" Style="{StaticResource LabelText}" VerticalAlignment="Center">
                                             <Run Text="{Binding IPv4Address, Mode=OneWay, FallbackValue=-, TargetNullValue=-}"/><Run Text=" - "/>
                                             <Run Text="{Binding MacAddress, Mode=OneWay, FallbackValue=-, TargetNullValue=-}"/>
                                         </TextBlock>
+                                        <Button Grid.Column="2" Style="{StaticResource IconButtonStyle}" Width="24" Height="24" Margin="8,0,0,0"
+                                                ToolTip="Copier"
+                                                Command="{Binding DataContext.CopyToClipboardCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding Converter={StaticResource NetworkAdapterCopyTextConverter}}"
+                                                AutomationProperties.Name="CopyNetworkRow" Click="CopyButton_Click">
+                                            <Path Data="{StaticResource CopyIconGeometry}" Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}" Stretch="Uniform" Width="12" Height="12"/>
+                                        </Button>
                                     </Grid>
                                 </DataTemplate>
                             </ItemsControl.ItemTemplate>

@@ -50,9 +50,6 @@ public partial class HardwareViewModel : ObservableObject
     {
         OnPropertyChanged(nameof(ProcessorCopyText));
         OnPropertyChanged(nameof(MemoryCopyText));
-        OnPropertyChanged(nameof(GraphicsCopyText));
-        OnPropertyChanged(nameof(DisksCopyText));
-        OnPropertyChanged(nameof(NetworkCopyText));
         OnPropertyChanged(nameof(MotherboardCopyText));
     }
 
@@ -61,23 +58,8 @@ public partial class HardwareViewModel : ObservableObject
         : "";
 
     public string MemoryCopyText => Snapshot?.Memory is { } mem
-        ? $"{mem.TotalGB:0.#} Go{(mem.MemoryType is null ? "" : $" {mem.MemoryType}")} - {mem.ModuleCount} barrette(s){(mem.SpeedMHz is { } s ? $" @ {s} MHz" : "")}"
+        ? $"{mem.TotalGB:0.#} Go{(mem.MemoryType is null ? "" : $" {mem.MemoryType}")}{(mem.Manufacturer is null ? "" : $" {mem.Manufacturer}")} - {mem.ModuleCount} barrette(s){(mem.SpeedMHz is { } s ? $" @ {s} MHz" : "")}"
         : "";
-
-    public string GraphicsCopyText => Snapshot is null
-        ? ""
-        : string.Join(Environment.NewLine, Snapshot.GraphicsCards.Select(g =>
-            $"{g.Name}{(g.VramGB is { } v ? $" - {v:0.#} Go VRAM" : "")}"));
-
-    public string DisksCopyText => Snapshot is null
-        ? ""
-        : string.Join(Environment.NewLine, Snapshot.Disks.Select(d =>
-            $"{d.Model} - {d.SizeGB:0.#} Go - {d.MediaType} - {d.InterfaceType}"));
-
-    public string NetworkCopyText => Snapshot is null
-        ? ""
-        : string.Join(Environment.NewLine, Snapshot.NetworkAdapters.Select(n =>
-            $"{n.Name} - {n.IPv4Address ?? "-"} - {n.MacAddress ?? "-"}"));
 
     public string MotherboardCopyText => Snapshot is null
         ? ""

@@ -20,8 +20,18 @@
                         <Run Text="{Binding CpuUsage, Mode=OneWay, StringFormat={}{0:0.0} %}"/>
                     </TextBlock>
                     <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding CpuUsage, Mode=OneWay}" Foreground="{DynamicResource AccentBrush}"/>
-                    <TextBlock Style="{StaticResource LabelText}" Margin="0,6,0,0"
-                               Text="{Binding CpuTemperature, Mode=OneWay, StringFormat={}{0:0} °C, FallbackValue=N/A, TargetNullValue=N/A}"/>
+                    <TextBlock Margin="0,6,0,0"
+                               Text="{Binding CpuTemperature, Mode=OneWay, StringFormat={}{0:0} °C, FallbackValue=N/A, TargetNullValue=N/A}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource LabelText}">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CpuTemperature}" Value="{x:Null}">
+                                        <Setter Property="ToolTip" Value="Lancez SlapIA Tool en tant qu'administrateur pour afficher la temperature du processeur (necessaire pour acceder aux capteurs materiels)."/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
                 </StackPanel>
             </Border>
             <Border Style="{StaticResource CardBorder}" Margin="0,0,12,0">

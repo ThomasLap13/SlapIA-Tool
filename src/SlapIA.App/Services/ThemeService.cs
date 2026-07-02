@@ -92,11 +92,6 @@ public class ThemeService : IDisposable
             theme == AppTheme.Dark ? ApplicationTheme.Dark : ApplicationTheme.Light,
             WindowBackdropType.None,
             updateAccent: false);
-
-        // ApplicationThemeManager.Apply() re-injects WPF-UI's own (barely-rounded) default,
-        // so re-assert ours afterwards to get the more pronounced Windows 11 rounding on
-        // ui:Button / ui:TextBox / etc.
-        app.Resources["ControlCornerRadius"] = new CornerRadius(8);
     }
 
     public static AppTheme DetectSystemTheme()

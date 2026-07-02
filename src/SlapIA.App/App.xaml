@@ -14,6 +14,9 @@
             <conv:NullableUsageConverter x:Key="NullableUsageConverter"/>
             <conv:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
             <conv:StringToVisibilityConverter x:Key="StringToVisibilityConverter"/>
+            <conv:GraphicsCardCopyTextConverter x:Key="GraphicsCardCopyTextConverter"/>
+            <conv:NetworkAdapterCopyTextConverter x:Key="NetworkAdapterCopyTextConverter"/>
+            <conv:DiskCopyTextConverter x:Key="DiskCopyTextConverter"/>
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
 
             <!-- Text styles -->
@@ -106,6 +109,41 @@
                 </Setter>
             </Style>
 
+            <!-- Pill-shaped secondary button (used for "Actualiser" / "Verifier les mises a jour").
+                 Wpf.Ui.Controls.Button's own corner radius is baked into its compiled template and
+                 isn't resource-driven, so a fully rounded look needs our own ControlTemplate. -->
+            <Style x:Key="PillButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource BorderBrush2}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+                <Setter Property="FontSize" Value="12.5"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Padding" Value="16,8"/>
+                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="VerticalContentAlignment" Value="Center"/>
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="UseLayoutRounding" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="Bg" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="999" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Bg" Property="Background" Value="{DynamicResource CardHoverBrush}"/>
+                                </Trigger>
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Setter Property="Opacity" Value="0.5"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
             <!-- Small round icon button (used for "copy to clipboard" actions) -->
             <Style x:Key="IconButtonStyle" TargetType="Button">
                 <Setter Property="Width" Value="28"/>
@@ -159,6 +197,13 @@
 
             <!-- Checkmark shown briefly on a copy button after a successful click, as feedback. -->
             <Geometry x:Key="CheckIconGeometry">M1,6.5 L4.5,10 L11,2.5</Geometry>
+
+            <!-- Sidebar navigation icons (stroked outlines, straight segments only so they render
+                 reliably without relying on Segoe Fluent Icons glyph availability). -->
+            <Geometry x:Key="NavHomeIconGeometry">M1,7 L7.5,1.5 L14,7 M3,6 L3,14 L12,14 L12,6 M6,14 L6,10 L9,10 L9,14</Geometry>
+            <Geometry x:Key="NavHardwareIconGeometry">M4,4 L11,4 L11,11 L4,11 Z M6,4 L6,1.5 M9,4 L9,1.5 M6,11 L6,13.5 M9,11 L9,13.5 M4,6 L1.5,6 M4,9 L1.5,9 M11,6 L13.5,6 M11,9 L13.5,9</Geometry>
+            <Geometry x:Key="NavMonitoringIconGeometry">M1,8 L4,8 L6,2.5 L9,13.5 L11,8 L15,8</Geometry>
+            <Geometry x:Key="NavSoftwareIconGeometry">M1,3 L14,3 L14,13 L1,13 Z M1,6 L14,6</Geometry>
 
             <!-- Software list DataGrid (explicit key so it can't collide with WPF-UI's global theming) -->
             <Style x:Key="SoftwareGridStyle" TargetType="DataGrid">

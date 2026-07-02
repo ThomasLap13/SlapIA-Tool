@@ -10,6 +10,7 @@
     <SolidColorBrush x:Key="CardHoverBrush" Color="#F5F5F5"/>
     <SolidColorBrush x:Key="BorderBrush2" Color="#E5E5E5"/>
     <SolidColorBrush x:Key="DividerBrush" Color="#EBEBEB"/>
+    <SolidColorBrush x:Key="SidebarBorderBrush" Color="#14000000"/>
 
     <SolidColorBrush x:Key="AccentBrush" Color="#0078D4"/>
     <SolidColorBrush x:Key="AccentHoverBrush" Color="#106EBE"/>

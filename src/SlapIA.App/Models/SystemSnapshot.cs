@@ -2,7 +2,7 @@ namespace SlapIA.App.Models;
 
 public record ProcessorInfo(string Name, int Cores, int LogicalProcessors, double MaxClockSpeedGHz);
 
-public record MemoryInfo(double TotalGB, int ModuleCount, int? SpeedMHz, string? MemoryType);
+public record MemoryInfo(double TotalGB, int ModuleCount, int? SpeedMHz, string? MemoryType, string? Manufacturer);
 
 public record GraphicsCardInfo(string Name, double? VramGB, string? DriverVersion);
 

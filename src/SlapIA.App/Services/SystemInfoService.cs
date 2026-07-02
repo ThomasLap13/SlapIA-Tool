@@ -78,12 +78,17 @@ public class SystemInfoService : ISystemInfoService
         int moduleCount = 0;
         int? speed = null;
         string? type = null;
+        var manufacturers = new List<string>();
 
-        foreach (var mo in Query("SELECT Capacity, Speed, SMBIOSMemoryType FROM Win32_PhysicalMemory"))
+        foreach (var mo in Query("SELECT Capacity, Speed, SMBIOSMemoryType, Manufacturer FROM Win32_PhysicalMemory"))
         {
             moduleCount++;
             speed ??= mo["Speed"] is null ? null : Convert.ToInt32(mo["Speed"]);
             type ??= MapMemoryType(mo["SMBIOSMemoryType"] is null ? null : Convert.ToInt32(mo["SMBIOSMemoryType"]));
+
+            var manufacturer = CleanMemoryManufacturer(mo["Manufacturer"] as string);
+            if (manufacturer is not null && !manufacturers.Contains(manufacturer, StringComparer.OrdinalIgnoreCase))
+                manufacturers.Add(manufacturer);
         }
 
         if (totalBytes <= 0 && moduleCount == 0)
@@ -93,7 +98,20 @@ public class SystemInfoService : ISystemInfoService
             TotalGB: Math.Round(totalBytes / 1024 / 1024 / 1024, 1),
             ModuleCount: moduleCount,
             SpeedMHz: speed,
-            MemoryType: type);
+            MemoryType: type,
+            Manufacturer: manufacturers.Count > 0 ? string.Join(" / ", manufacturers) : null);
+    }
+
+    // WMI reports these placeholder strings on many boards when the SPD manufacturer field
+    // isn't populated - treat them as "no data" rather than showing them to the user.
+    private static readonly string[] UnknownMemoryManufacturers = { "unknown", "undefined", "not specified", "no enclosure", "0", "0000" };
+
+    private static string? CleanMemoryManufacturer(string? value)
+    {
+        var cleaned = CleanString(value);
+        if (string.IsNullOrWhiteSpace(cleaned) || UnknownMemoryManufacturers.Contains(cleaned.ToLowerInvariant()))
+            return null;
+        return cleaned;
     }
 
     private static List<GraphicsCardInfo> ReadGraphicsCards()

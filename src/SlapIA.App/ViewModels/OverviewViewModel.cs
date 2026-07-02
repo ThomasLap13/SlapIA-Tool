@@ -49,7 +49,7 @@ public partial class OverviewViewModel : ObservableObject
                 ? $"{mem.TotalGB:0.#} Go{(mem.MemoryType is null ? "" : $" ({mem.MemoryType})")}"
                 : "-";
             MemoryDetails = snapshot.Memory is { } memDetails
-                ? $"{memDetails.ModuleCount} barrette(s){(memDetails.SpeedMHz is { } speed ? $" @ {speed} MHz" : "")}"
+                ? $"{memDetails.ModuleCount} barrette(s){(memDetails.Manufacturer is { } man ? $" - {man}" : "")}{(memDetails.SpeedMHz is { } speed ? $" @ {speed} MHz" : "")}"
                 : "-";
 
             var primaryGpu = snapshot.GraphicsCards.FirstOrDefault();
