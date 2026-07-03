@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
     <AssemblyName>SlapIA.Tool</AssemblyName>
     <RootNamespace>SlapIA.App</RootNamespace>
     <Product>SlapIA Tool</Product>
@@ -17,6 +18,14 @@
   <ItemGroup>
     <Resource Include="Assets\app.ico" />
     <Resource Include="Assets\logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- UseWindowsForms is only needed for the tray icon's NotifyIcon (TrayIconService.cs,
+         which references it via an explicit "Forms" alias). Its auto-added global using
+         collides with System.Windows (Application, UserControl, ...) across every WPF file,
+         so drop it and keep usages explicit/aliased instead. -->
+    <Using Remove="System.Windows.Forms" />
   </ItemGroup>
 
   <ItemGroup>
