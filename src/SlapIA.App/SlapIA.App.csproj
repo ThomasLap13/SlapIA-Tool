@@ -10,7 +10,7 @@
     <AssemblyName>SlapIA.Tool</AssemblyName>
     <RootNamespace>SlapIA.App</RootNamespace>
     <Product>SlapIA Tool</Product>
-    <Version>0.3.2</Version>
+    <Version>0.3.3</Version>
     <Authors>Thomas Lapierre</Authors>
     <ApplicationIcon>..\..\packaging\Assets\app.ico</ApplicationIcon>
   </PropertyGroup>
