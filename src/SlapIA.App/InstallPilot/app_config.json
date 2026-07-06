@@ -1,0 +1,1396 @@
+{
+  "apps": [
+    {
+      "id": "chrome",
+      "names": {
+        "fr": "Google Chrome",
+        "en": "Google Chrome",
+        "ru": "Google Chrome",
+        "zh": "Google Chrome"
+      },
+      "description": {
+        "fr": "Navigateur rapide et populaire de Google",
+        "en": "Google's fast and popular web browser",
+        "ru": "Быстрый и популярный веб-браузер от Google",
+        "zh": "谷歌出品的快速且流行的网页浏览器"
+      },
+      "short_name": "GCH",
+      "color": "#4285f4",
+      "icon_path": "icons/chrome.png",
+      "official_url": "https://www.google.com/intl/fr/chrome/",
+      "download_url": "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise64.msi",
+      "winget_id": "Google.Chrome",
+      "category": "web",
+      "registry_names": [
+        "Google Chrome"
+      ],
+      "check_paths": [
+        "C:/Program Files/Google/Chrome/Application/chrome.exe",
+        "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe",
+        "%LOCALAPPDATA%/Google/Chrome/Application/chrome.exe"
+      ]
+    },
+    {
+      "id": "firefox",
+      "names": {
+        "fr": "Mozilla Firefox",
+        "en": "Mozilla Firefox",
+        "ru": "Mozilla Firefox",
+        "zh": "Mozilla Firefox"
+      },
+      "description": {
+        "fr": "Navigateur libre axé sur la vie privée",
+        "en": "Free, open-source, privacy-focused browser",
+        "ru": "Свободный браузер с открытым исходным кодом, ориентированный на конфиденциальность",
+        "zh": "自由开源、注重隐私保护的浏览器"
+      },
+      "short_name": "FF",
+      "color": "#FF7139",
+      "icon_path": "icons/firefox.png",
+      "official_url": "https://www.mozilla.org/firefox/download/",
+      "download_url": "https://download.mozilla.org/?product=firefox-latest-ssl&os=win64&lang=fr",
+      "installer_args": [
+        "-ms"
+      ],
+      "winget_id": "Mozilla.Firefox",
+      "category": "web",
+      "registry_names": [
+        "Mozilla Firefox"
+      ],
+      "check_paths": [
+        "C:/Program Files/Mozilla Firefox/firefox.exe",
+        "C:/Program Files (x86)/Mozilla Firefox/firefox.exe"
+      ]
+    },
+    {
+      "id": "brave",
+      "names": {
+        "fr": "Brave",
+        "en": "Brave",
+        "ru": "Brave",
+        "zh": "Brave"
+      },
+      "description": {
+        "fr": "Navigateur avec blocage des pubs intégré",
+        "en": "Browser with built-in ad and tracker blocking",
+        "ru": "Браузер со встроенной блокировкой рекламы и трекеров",
+        "zh": "内置广告和追踪器拦截功能的浏览器"
+      },
+      "short_name": "BRV",
+      "color": "#FB542B",
+      "icon_path": "icons/brave.png",
+      "official_url": "https://brave.com/download/",
+      "download_url": "https://laptop-updates.brave.com/latest/winx64",
+      "installer_args": [
+        "/silent",
+        "/install"
+      ],
+      "winget_id": "Brave.Brave",
+      "category": "web",
+      "registry_names": [
+        "Brave"
+      ],
+      "check_paths": [
+        "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe",
+        "%LOCALAPPDATA%/BraveSoftware/Brave-Browser/Application/brave.exe"
+      ]
+    },
+    {
+      "id": "discord",
+      "names": {
+        "fr": "Discord",
+        "en": "Discord",
+        "ru": "Discord",
+        "zh": "Discord"
+      },
+      "description": {
+        "fr": "Chat vocal, vidéo et texte pour la communauté et les gamers",
+        "en": "Voice, video and text chat for communities and gamers",
+        "ru": "Голосовой, видео- и текстовый чат для сообществ и геймеров",
+        "zh": "适用于社区与游戏玩家的语音、视频和文字聊天工具"
+      },
+      "short_name": "DSC",
+      "color": "#5865f2",
+      "icon_path": "icons/discord.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XPDC2RH70K22MN",
+      "official_url": "https://discord.com/download",
+      "download_url": "https://discord.com/api/downloads/distributions/app/installers/latest?channel=stable&platform=win&arch=x86",
+      "winget_id": "Discord.Discord",
+      "category": "messaging",
+      "registry_names": [
+        "Discord"
+      ],
+      "appx_names": [
+        "Discord.Discord"
+      ],
+      "check_paths": [
+        "%LOCALAPPDATA%/Discord/app-*/Discord.exe",
+        "C:/Program Files/Discord/Discord.exe",
+        "%LOCALAPPDATA%/Packages/Discord.Discord_*/app-*/Discord.exe"
+      ]
+    },
+    {
+      "id": "teams",
+      "names": {
+        "fr": "Microsoft Teams",
+        "en": "Microsoft Teams",
+        "ru": "Microsoft Teams",
+        "zh": "Microsoft Teams"
+      },
+      "description": {
+        "fr": "Messagerie, visioconférence et collaboration Microsoft",
+        "en": "Microsoft messaging, video calls and collaboration",
+        "ru": "Чат, видеоконференции и совместная работа от Microsoft",
+        "zh": "微软推出的即时通讯、视频会议和协同办公软件"
+      },
+      "short_name": "MST",
+      "color": "#6264A7",
+      "icon_path": "icons/teams.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XP8BT8DW290MPQ",
+      "official_url": "https://www.microsoft.com/microsoft-teams/download-app",
+      "download_url": "https://statics.teams.cdn.office.net/production-windows-x64/lkg/MSTeams-x64.msix",
+      "winget_id": "Microsoft.Teams",
+      "category": "messaging",
+      "registry_names": [
+        "Microsoft Teams"
+      ],
+      "appx_names": [
+        "MSTeams",
+        "Microsoft.Teams"
+      ],
+      "check_paths": [
+        "%LOCALAPPDATA%/Microsoft/Teams/current/Teams.exe",
+        "%APPDATA%/Microsoft/Teams/current/Teams.exe",
+        "C:/Program Files/Microsoft/Teams/current/Teams.exe",
+        "%LOCALAPPDATA%/Microsoft/WindowsApps/MicrosoftTeams.exe",
+        "%LOCALAPPDATA%/Microsoft/WindowsApps/ms-teams.exe",
+        "%LOCALAPPDATA%/Packages/MSTeams_*/*"
+      ]
+    },
+    {
+      "id": "whatsapp",
+      "names": {
+        "fr": "WhatsApp",
+        "en": "WhatsApp",
+        "ru": "WhatsApp",
+        "zh": "WhatsApp"
+      },
+      "description": {
+        "fr": "Messagerie instantanée de Meta, chiffrement de bout en bout",
+        "en": "Meta's end-to-end encrypted instant messaging app",
+        "ru": "Мессенджер от Meta со сквозным шифрованием",
+        "zh": "Meta 旗下端到端加密的即时通讯应用"
+      },
+      "short_name": "WA",
+      "color": "#25D366",
+      "icon_path": "icons/whatsapp.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=9NKSQGP7F2NH",
+      "winget_id": "9NKSQGP7F2NH",
+      "category": "messaging",
+      "registry_names": [
+        "WhatsApp"
+      ],
+      "appx_names": [
+        "5319275A.WhatsAppDesktop"
+      ],
+      "check_paths": [
+        "%LOCALAPPDATA%/WhatsApp/WhatsApp.exe",
+        "%LOCALAPPDATA%/Microsoft/WindowsApps/WhatsApp.exe",
+        "%LOCALAPPDATA%/Packages/5319275A.WhatsAppDesktop_*/"
+      ]
+    },
+    {
+      "id": "steam",
+      "names": {
+        "fr": "Steam",
+        "en": "Steam",
+        "ru": "Steam",
+        "zh": "Steam"
+      },
+      "description": {
+        "fr": "Plateforme de jeux PC de Valve avec 50 000+ titres",
+        "en": "Valve's PC gaming platform with 50,000+ titles",
+        "ru": "Игровая ПК-платформа от Valve с более чем 50 000 игр",
+        "zh": "Valve 旗下拥有超过 50,000 款游戏的 PC 游戏平台"
+      },
+      "short_name": "STEAM",
+      "color": "#1b2838",
+      "icon_path": "icons/steam.png",
+      "official_url": "https://store.steampowered.com/about/",
+      "download_url": "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe",
+      "skip_validation": true,
+      "winget_id": "Valve.Steam",
+      "category": "games",
+      "registry_names": [
+        "Steam"
+      ],
+      "check_paths": [
+        "C:/Program Files (x86)/Steam/Steam.exe",
+        "C:/Program Files/Steam/Steam.exe"
+      ]
+    },
+    {
+      "id": "epic",
+      "names": {
+        "fr": "Epic Games Launcher",
+        "en": "Epic Games Launcher",
+        "ru": "Epic Games Launcher",
+        "zh": "Epic Games 启动器"
+      },
+      "description": {
+        "fr": "Launcher de la boutique Epic Games, jeux gratuits mensuels",
+        "en": "Epic Games Store launcher with free monthly games",
+        "ru": "Загрузчик магазина Epic Games со свободными ежемесячными играми",
+        "zh": "Epic Games 游戏商城启动器，提供每月免费游戏"
+      },
+      "short_name": "EPIC",
+      "color": "#2a2a2a",
+      "icon_path": "icons/epic.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XP99VR1BPSBQJ2",
+      "official_url": "https://store.epicgames.com/fr-fr/download",
+      "download_url": "https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi",
+      "installer_args": [
+        "/quiet",
+        "/norestart"
+      ],
+      "skip_validation": true,
+      "winget_id": "EpicGames.EpicGamesLauncher",
+      "category": "games",
+      "registry_names": [
+        "Epic Games Launcher",
+        "Epic Games"
+      ],
+      "check_paths": [
+        "C:/Program Files (x86)/Epic Games/Launcher/Portal/Binaries/Win64/EpicGamesLauncher.exe",
+        "C:/Program Files/Epic Games/Launcher/Portal/Binaries/Win64/EpicGamesLauncher.exe"
+      ]
+    },
+    {
+      "id": "obs",
+      "names": {
+        "fr": "OBS Studio",
+        "en": "OBS Studio",
+        "ru": "OBS Studio",
+        "zh": "OBS Studio"
+      },
+      "description": {
+        "fr": "Enregistrement et streaming vidéo gratuit et open-source",
+        "en": "Free, open-source video recording and live streaming",
+        "ru": "Бесплатная программа для записи видео и стриминга с открытым исходным кодом",
+        "zh": "免费开源的视频录制与直播串流软件"
+      },
+      "short_name": "OBS",
+      "color": "#1f5bb5",
+      "icon_path": "icons/obs.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XPFFH613W8V6LV",
+      "official_url": "https://obsproject.com/download",
+      "download_resolver": {
+        "type": "github",
+        "owner": "obsproject",
+        "repo": "obs-studio",
+        "pattern": "OBS-Studio-.*-Windows-x64-Installer\\.exe"
+      },
+      "winget_id": "OBSProject.OBSStudio",
+      "category": "media",
+      "registry_names": [
+        "OBS Studio"
+      ],
+      "appx_names": [
+        "OBSProject.OBSStudio"
+      ],
+      "check_paths": [
+        "C:/Program Files/obs-studio/bin/64bit/obs64.exe",
+        "C:/Program Files (x86)/obs-studio/bin/64bit/obs64.exe",
+        "%LOCALAPPDATA%/Programs/obs-studio/bin/64bit/obs64.exe",
+        "%LOCALAPPDATA%/Packages/OBSProject.OBSStudio_*/"
+      ]
+    },
+    {
+      "id": "vlc",
+      "names": {
+        "fr": "VLC media player",
+        "en": "VLC media player",
+        "ru": "Медиаплеер VLC",
+        "zh": "VLC 媒体播放器"
+      },
+      "description": {
+        "fr": "Lecteur multimédia universel qui lit presque tout",
+        "en": "Universal media player that plays almost everything",
+        "ru": "Универсальный медиаплеер, воспроизводящий практически всё",
+        "zh": "几乎能播放一切格式的通用媒体播放器"
+      },
+      "short_name": "VLC",
+      "color": "#FF8800",
+      "icon_path": "icons/vlc.png",
+      "official_url": "https://www.videolan.org/vlc/download-windows.html",
+      "download_resolver": {
+        "type": "vlc"
+      },
+      "winget_id": "VideoLAN.VLC",
+      "category": "media",
+      "registry_names": [
+        "VLC media player"
+      ],
+      "check_paths": [
+        "C:/Program Files/VideoLAN/VLC/vlc.exe",
+        "C:/Program Files (x86)/VideoLAN/VLC/vlc.exe"
+      ]
+    },
+    {
+      "id": "spotify",
+      "names": {
+        "fr": "Spotify",
+        "en": "Spotify",
+        "ru": "Spotify",
+        "zh": "Spotify"
+      },
+      "description": {
+        "fr": "Streaming musical avec plus de 100 millions de titres",
+        "en": "Music streaming with over 100 million tracks",
+        "ru": "Музыкальный стриминг с более чем 100 миллионами треков",
+        "zh": "拥有超过 1 亿首曲目的音乐流媒体服务"
+      },
+      "short_name": "SPT",
+      "color": "#1DB954",
+      "icon_path": "icons/spotify.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=9NCBCSZSJRSB",
+      "official_url": "https://www.spotify.com/download/windows/",
+      "download_url": "https://download.scdn.co/SpotifySetup.exe",
+      "winget_id": "Spotify.Spotify",
+      "category": "media",
+      "registry_names": [
+        "Spotify"
+      ],
+      "appx_names": [
+        "SpotifyAB.SpotifyMusic"
+      ],
+      "check_paths": [
+        "%APPDATA%/Spotify/Spotify.exe",
+        "%LOCALAPPDATA%/Microsoft/WindowsApps/Spotify.exe",
+        "%LOCALAPPDATA%/Packages/SpotifyAB.SpotifyMusic_*/"
+      ]
+    },
+    {
+      "id": "apple_music",
+      "names": {
+        "fr": "Apple Music",
+        "en": "Apple Music",
+        "ru": "Apple Music",
+        "zh": "Apple Music"
+      },
+      "description": {
+        "fr": "Service de streaming musical Apple disponible sur Windows",
+        "en": "Apple's music streaming service, available on Windows",
+        "ru": "Музыкальный стриминговый сервис от Apple, доступный на Windows",
+        "zh": "苹果旗下的音乐流媒体服务，支持 Windows 系统"
+      },
+      "short_name": "APM",
+      "color": "#FC3C44",
+      "icon_path": "icons/apple_music.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=9PFHDD62MXS1",
+      "winget_id": "Apple.Music",
+      "category": "media",
+      "registry_names": [
+        "Apple Music"
+      ],
+      "appx_names": [
+        "AppleInc.AppleMusicWin"
+      ],
+      "check_paths": [
+        "%LOCALAPPDATA%/Packages/AppleInc.AppleMusicWin_*/",
+        "%LOCALAPPDATA%/Packages/AppleInc.AppleMusic_*/",
+        "C:/Program Files/Apple/Music/Music.exe"
+      ]
+    },
+    {
+      "id": "deezer",
+      "names": {
+        "fr": "Deezer",
+        "en": "Deezer",
+        "ru": "Deezer",
+        "zh": "Deezer"
+      },
+      "description": {
+        "fr": "Streaming musical français avec option HiFi sans compression",
+        "en": "French music streaming with lossless HiFi option",
+        "ru": "Французский стриминг музыки с поддержкой Hi-Fi звука без потерь",
+        "zh": "源自法国的音乐流媒体服务，支持无损 HiFi 选项"
+      },
+      "short_name": "DZR",
+      "color": "#A238FF",
+      "icon_path": "icons/deezer.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=9NBLGGH6J7VV",
+      "official_url": "https://www.deezer.com/en/download",
+      "download_resolver": {
+        "type": "deezer"
+      },
+      "winget_id": "Deezer.Deezer",
+      "category": "media",
+      "registry_names": [
+        "Deezer"
+      ],
+      "appx_names": [
+        "Deezer.62021768415AF",
+        "Deezer.Deezer"
+      ],
+      "check_paths": [
+        "C:/Program Files/WindowsApps/Deezer.*/",
+        "%LOCALAPPDATA%/Packages/Deezer.*/",
+        "%LOCALAPPDATA%/Programs/deezer-desktop/Deezer.exe",
+        "%LOCALAPPDATA%/Programs/Deezer/Deezer.exe",
+        "C:/Program Files/Deezer/Deezer.exe"
+      ]
+    },
+    {
+      "id": "plex",
+      "names": {
+        "fr": "Plex",
+        "en": "Plex",
+        "ru": "Plex",
+        "zh": "Plex"
+      },
+      "description": {
+        "fr": "Serveur et client multimédia pour votre bibliothèque perso",
+        "en": "Media server and client for your personal library",
+        "ru": "Медиасервер и клиент для вашей личной медиатеки",
+        "zh": "适用于个人媒体库的媒体服务器与客户端"
+      },
+      "short_name": "PLEX",
+      "color": "#E5A00D",
+      "icon_path": "icons/plex.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XP9CDQW6ML4NQN",
+      "official_url": "https://www.plex.tv/media-server-downloads/#plex-app",
+      "download_resolver": {
+        "type": "plex"
+      },
+      "installer_args": [
+        "/S"
+      ],
+      "winget_id": "Plex.Plex",
+      "category": "media",
+      "registry_names": [
+        "Plex"
+      ],
+      "check_paths": [
+        "C:/Program Files/Plex/Plex/Plex.exe",
+        "%LOCALAPPDATA%/Plex/Plex.exe",
+        "%LOCALAPPDATA%/Programs/Plex/Plex.exe"
+      ]
+    },
+    {
+      "id": "notion",
+      "names": {
+        "fr": "Notion",
+        "en": "Notion",
+        "ru": "Notion",
+        "zh": "Notion"
+      },
+      "description": {
+        "fr": "Notes, bases de données et gestion de projet tout-en-un",
+        "en": "All-in-one notes, databases and project management",
+        "ru": "Универсальный сервис для заметок, баз данных и управления проектами",
+        "zh": "集笔记、数据库和项目管理于一体的多合一协作工具"
+      },
+      "short_name": "NOT",
+      "color": "#191919",
+      "icon_path": "icons/notion.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XPDBVSS44R0L9H",
+      "official_url": "https://www.notion.so/desktop",
+      "download_url": "https://www.notion.so/desktop/windows/download",
+      "winget_id": "Notion.Notion",
+      "category": "productivity",
+      "registry_names": [
+        "Notion"
+      ],
+      "appx_names": [
+        "Notion.Notion"
+      ],
+      "check_paths": [
+        "%LOCALAPPDATA%/Programs/Notion/Notion.exe",
+        "%LOCALAPPDATA%/Packages/Notion.Notion_*/"
+      ]
+    },
+    {
+      "id": "libreoffice",
+      "names": {
+        "fr": "LibreOffice",
+        "en": "LibreOffice",
+        "ru": "LibreOffice",
+        "zh": "LibreOffice"
+      },
+      "description": {
+        "fr": "Suite bureautique complète et gratuite (Writer, Calc, Impress...)",
+        "en": "Full-featured free office suite (Writer, Calc, Impress...)",
+        "ru": "Полнофункциональный бесплатный офисный пакет (Writer, Calc, Impress...)",
+        "zh": "功能齐全的免费开源办公套件（含 Writer、Calc、Impress 等）"
+      },
+      "short_name": "LO",
+      "color": "#18A303",
+      "icon_path": "icons/libreoffice.png",
+      "official_url": "https://www.libreoffice.org/download/download-libreoffice/",
+      "download_resolver": {
+        "type": "libreoffice"
+      },
+      "winget_id": "TheDocumentFoundation.LibreOffice",
+      "category": "productivity",
+      "registry_names": [
+        "LibreOffice"
+      ],
+      "check_paths": [
+        "C:/Program Files/LibreOffice/program/soffice.exe",
+        "C:/Program Files (x86)/LibreOffice/program/soffice.exe"
+      ]
+    },
+    {
+      "id": "outlook_new",
+      "names": {
+        "fr": "Outlook",
+        "en": "Outlook",
+        "ru": "Outlook",
+        "zh": "Outlook"
+      },
+      "description": {
+        "fr": "Client email et calendrier Microsoft nouvelle génération",
+        "en": "Next-generation Microsoft email and calendar client",
+        "ru": "Новое поколение почтового клиента и календаря от Microsoft",
+        "zh": "新一代微软电子邮件与日历客户端"
+      },
+      "short_name": "OLK",
+      "color": "#0078d4",
+      "icon_path": "icons/outlook_new.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=9NRX63209R7B",
+      "winget_id": "Microsoft.OutlookForWindows",
+      "category": "productivity",
+      "registry_names": [
+        "Microsoft Outlook",
+        "Outlook"
+      ],
+      "appx_names": [
+        "Microsoft.OutlookForWindows"
+      ],
+      "check_paths": [
+        "%LOCALAPPDATA%/Packages/Microsoft.OutlookForWindows_*/",
+        "%LOCALAPPDATA%/Microsoft/WindowsApps/olk.exe"
+      ]
+    },
+    {
+      "id": "antigravity",
+      "names": {
+        "fr": "Antigravity",
+        "en": "Antigravity",
+        "ru": "Antigravity",
+        "zh": "Antigravity"
+      },
+      "description": {
+        "fr": "Application de productivité et d'organisation personnelle",
+        "en": "Personal productivity and organization app",
+        "ru": "Приложение для личной продуктивности и организации дел",
+        "zh": "个人生产力与效率规划应用"
+      },
+      "short_name": "ANT",
+      "color": "#009688",
+      "icon_path": "icons/antigravity.png",
+      "official_url": "https://antigravity.app/download",
+      "download_url": "https://edgedl.me.gvt1.com/edgedl/release2/j0qc3/antigravity/stable/2.0.3-6242596486512640/windows-x64/Antigravity%20IDE.exe",
+      "installer_args": [
+        "/VERYSILENT",
+        "/NORESTART",
+        "/SUPPRESSMSGBOXES",
+        "/NOADMINWARNING"
+      ],
+      "category": "productivity",
+      "registry_names": [
+        "Antigravity"
+      ],
+      "check_paths": [
+        "C:/Program Files/Antigravity/Antigravity.exe",
+        "C:/Program Files (x86)/Antigravity/Antigravity.exe",
+        "%LOCALAPPDATA%/Programs/Antigravity/Antigravity.exe",
+        "%LOCALAPPDATA%/Antigravity/Antigravity.exe",
+        "%APPDATA%/Antigravity/Antigravity.exe"
+      ]
+    },
+    {
+      "id": "keepass",
+      "names": {
+        "fr": "KeePass",
+        "en": "KeePass",
+        "ru": "KeePass",
+        "zh": "KeePass"
+      },
+      "description": {
+        "fr": "Gestionnaire de mots de passe open-source stocké localement",
+        "en": "Open-source password manager stored locally",
+        "ru": "Локальный менеджер паролей с открытым исходным кодом",
+        "zh": "开源的本地离线密码管理器"
+      },
+      "short_name": "KPS",
+      "color": "#6cac20",
+      "icon_path": "icons/keepass.png",
+      "official_url": "https://keepass.info/download.html",
+      "download_url": "https://downloads.sourceforge.net/project/keepass/KeePass%202.x/2.61.1/KeePass-2.61.1-Setup.exe",
+      "download_resolver": {
+        "type": "keepass"
+      },
+      "installer_args": [
+        "/VERYSILENT",
+        "/NORESTART",
+        "/SUPPRESSMSGBOXES"
+      ],
+      "winget_id": "KeePass.KeePass",
+      "category": "security",
+      "registry_names": [
+        "KeePass Password Safe",
+        "KeePass"
+      ],
+      "appx_names": [
+        "DominikReichl.KeePass"
+      ],
+      "check_paths": [
+        "C:/Program Files/KeePass Password Safe 2/KeePass.exe",
+        "C:/Program Files (x86)/KeePass Password Safe 2/KeePass.exe",
+        "%LOCALAPPDATA%/Packages/DominikReichl.KeePass_*/"
+      ]
+    },
+    {
+      "id": "7zip",
+      "names": {
+        "fr": "7-Zip",
+        "en": "7-Zip",
+        "ru": "7-Zip",
+        "zh": "7-Zip"
+      },
+      "description": {
+        "fr": "Archiveur puissant supportant 7z, ZIP, RAR et plus",
+        "en": "Powerful archiver supporting 7z, ZIP, RAR and more",
+        "ru": "Мощный архиватор с поддержкой 7z, ZIP, RAR и других форматов",
+        "zh": "支持 7z、ZIP、RAR 等格式的高效文件压缩/解压工具"
+      },
+      "short_name": "7ZIP",
+      "color": "#009900",
+      "icon_path": "icons/7zip.png",
+      "official_url": "https://www.7-zip.org/download.html",
+      "download_resolver": {
+        "type": "7zip"
+      },
+      "winget_id": "7zip.7zip",
+      "category": "utilities",
+      "registry_names": [
+        "7-Zip"
+      ],
+      "check_paths": [
+        "C:/Program Files/7-Zip/7zFM.exe",
+        "C:/Program Files (x86)/7-Zip/7zFM.exe"
+      ]
+    },
+    {
+      "id": "everything",
+      "names": {
+        "fr": "Everything",
+        "en": "Everything",
+        "ru": "Everything",
+        "zh": "Everything"
+      },
+      "description": {
+        "fr": "Recherche de fichiers et dossiers instantanée sur Windows",
+        "en": "Instant file and folder search across Windows",
+        "ru": "Мгновенный поиск файлов и папок в системе Windows",
+        "zh": "秒级搜索 Windows 电脑中所有文件和文件夹的工具"
+      },
+      "short_name": "EVR",
+      "color": "#1C5FB5",
+      "icon_path": "icons/everything.png",
+      "official_url": "https://www.voidtools.com/downloads/",
+      "download_resolver": {
+        "type": "everything"
+      },
+      "winget_id": "voidtools.Everything",
+      "category": "utilities",
+      "registry_names": [
+        "Everything"
+      ],
+      "check_paths": [
+        "C:/Program Files/Everything/Everything.exe",
+        "C:/Program Files (x86)/Everything/Everything.exe"
+      ]
+    },
+    {
+      "id": "powertoys",
+      "names": {
+        "fr": "PowerToys",
+        "en": "PowerToys",
+        "ru": "PowerToys",
+        "zh": "PowerToys"
+      },
+      "description": {
+        "fr": "Utilitaires système avancés Microsoft : FancyZones, PowerRename...",
+        "en": "Advanced Microsoft system utilities: FancyZones, PowerRename...",
+        "ru": "Набор полезных утилит Windows от Microsoft: FancyZones, PowerRename...",
+        "zh": "微软官方 Windows 高级系统工具集：FancyZones、PowerRename 等"
+      },
+      "short_name": "PT",
+      "color": "#0078d4",
+      "icon_path": "icons/powertoys.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XP89DCGQ3K6VLD",
+      "official_url": "https://github.com/microsoft/PowerToys/releases/latest",
+      "download_resolver": {
+        "type": "github",
+        "owner": "microsoft",
+        "repo": "PowerToys",
+        "pattern": "PowerToysSetup-.*-x64\\.exe"
+      },
+      "installer_args": [
+        "/silent",
+        "/norestart"
+      ],
+      "winget_id": "Microsoft.PowerToys",
+      "category": "utilities",
+      "registry_names": [
+        "PowerToys",
+        "Microsoft PowerToys",
+        "PowerToys (Preview)"
+      ],
+      "appx_names": [
+        "Microsoft.PowerToys"
+      ],
+      "check_paths": [
+        "C:/Program Files/PowerToys/PowerToys.exe",
+        "%LOCALAPPDATA%/Microsoft/PowerToys/PowerToys.exe",
+        "%LOCALAPPDATA%/Packages/Microsoft.PowerToys_*/"
+      ]
+    },
+    {
+      "id": "lenovo_vantage",
+      "names": {
+        "fr": "Lenovo Vantage",
+        "en": "Lenovo Vantage",
+        "ru": "Lenovo Vantage",
+        "zh": "Lenovo Vantage"
+      },
+      "description": {
+        "fr": "Gestion des pilotes, réglages et diagnostics Lenovo",
+        "en": "Lenovo driver management, settings and diagnostics",
+        "ru": "Управление драйверами, настройки и диагностика устройств Lenovo",
+        "zh": "联想设备驱动管理、硬件设置与系统诊断工具"
+      },
+      "short_name": "LNV",
+      "color": "#E2231A",
+      "icon_path": "icons/lenovo_vantage.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=9WZDNCRFJ4MV",
+      "winget_id": "Lenovo.LenovoVantage",
+      "category": "utilities",
+      "registry_names": [
+        "Lenovo Vantage"
+      ],
+      "appx_names": [
+        "E046963F.LenovoCompanion"
+      ],
+      "check_paths": [
+        "%LOCALAPPDATA%/Packages/E046963F.LenovoCompanion_*/",
+        "C:/Program Files (x86)/Lenovo/VantageService/*/LenovoVantageService.exe"
+      ]
+    },
+    {
+      "id": "nvidia_app",
+      "names": {
+        "fr": "NVIDIA App",
+        "en": "NVIDIA App",
+        "ru": "NVIDIA App",
+        "zh": "NVIDIA App"
+      },
+      "description": {
+        "fr": "Pilotes, overlay et optimisation des jeux NVIDIA",
+        "en": "NVIDIA drivers, in-game overlay and game optimization",
+        "ru": "Драйверы, внутриигровой оверлей и оптимизация игр NVIDIA",
+        "zh": "NVIDIA 显卡驱动管理、游戏内覆盖与游戏优化中心"
+      },
+      "short_name": "NVD",
+      "color": "#76B900",
+      "icon_path": "icons/nvidia_app.png",
+      "official_url": "https://www.nvidia.com/en-us/software/nvidia-app/",
+      "download_url": "https://uk.download.nvidia.com/nvapp/client/11.0.7.247/NVIDIA_app_v11.0.7.247.exe",
+      "download_resolver": {
+        "type": "nvidia"
+      },
+      "installer_args": [
+        "/s"
+      ],
+      "skip_validation": true,
+      "winget_id": "Nvidia.NvidiaApp",
+      "category": "utilities",
+      "registry_names": [
+        "NVIDIA App"
+      ],
+      "check_paths": [
+        "C:/Program Files/NVIDIA Corporation/NVIDIA App/CEF/NVIDIA App.exe",
+        "C:/Program Files/NVIDIA Corporation/NVIDIA App/CEF/NvidiaApp.exe",
+        "C:/Program Files/NVIDIA Corporation/NVIDIA App/DarkModeCheck.exe"
+      ]
+    },
+    {
+      "id": "cpuz",
+      "names": {
+        "fr": "CPU-Z",
+        "en": "CPU-Z",
+        "ru": "CPU-Z",
+        "zh": "CPU-Z"
+      },
+      "description": {
+        "fr": "Informations détaillées sur le processeur, la RAM et la carte mère",
+        "en": "Detailed info on CPU, RAM and motherboard",
+        "ru": "Подробная информация о процессоре, оперативной памяти и материнской плате",
+        "zh": "提供 CPU、内存、主板等硬件详细信息的检测工具"
+      },
+      "short_name": "CPZ",
+      "color": "#E8292F",
+      "icon_path": "icons/cpuz.png",
+      "official_url": "https://www.cpuid.com/softwares/cpu-z.html",
+      "download_resolver": {
+        "type": "cpuz"
+      },
+      "installer_args": [
+        "/VERYSILENT",
+        "/NORESTART",
+        "/SUPPRESSMSGBOXES"
+      ],
+      "winget_id": "CPUID.CPU-Z",
+      "category": "utilities",
+      "registry_names": [
+        "CPU-Z"
+      ],
+      "check_paths": [
+        "C:/Program Files/CPUID/CPU-Z/cpuz.exe",
+        "C:/Program Files (x86)/CPUID/CPU-Z/cpuz.exe"
+      ]
+    },
+    {
+      "id": "vscode",
+      "names": {
+        "fr": "Visual Studio Code",
+        "en": "Visual Studio Code",
+        "ru": "Visual Studio Code",
+        "zh": "Visual Studio Code"
+      },
+      "description": {
+        "fr": "Éditeur de code léger, extensible et gratuit de Microsoft",
+        "en": "Lightweight, extensible and free code editor by Microsoft",
+        "ru": "Легковесный, расширяемый и бесплатный редактор кода от Microsoft",
+        "zh": "微软出品的轻量、可扩展且免费的源代码编辑器"
+      },
+      "short_name": "VS",
+      "color": "#0078d4",
+      "icon_path": "icons/vscode.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XP9KHM4BK9FZ7Q",
+      "official_url": "https://code.visualstudio.com/Download",
+      "download_url": "https://code.visualstudio.com/sha/download?build=stable&os=win32-x64",
+      "installer_args": [
+        "/VERYSILENT",
+        "/NORESTART",
+        "/MERGETASKS=!runcode",
+        "/SUPPRESSMSGBOXES"
+      ],
+      "winget_id": "Microsoft.VisualStudioCode",
+      "category": "dev_tools",
+      "registry_names": [
+        "Microsoft Visual Studio Code",
+        "Visual Studio Code"
+      ],
+      "appx_names": [
+        "Microsoft.VisualStudioCode"
+      ],
+      "check_paths": [
+        "C:/Program Files/Microsoft VS Code/Code.exe",
+        "C:/Program Files (x86)/Microsoft VS Code/Code.exe",
+        "%LOCALAPPDATA%/Programs/Microsoft VS Code/Code.exe",
+        "%LOCALAPPDATA%/Packages/Microsoft.VisualStudioCode_*/"
+      ]
+    },
+    {
+      "id": "git",
+      "names": {
+        "fr": "Git",
+        "en": "Git",
+        "ru": "Git",
+        "zh": "Git"
+      },
+      "description": {
+        "fr": "Gestionnaire de versions décentralisé, indispensable pour le dev",
+        "en": "Distributed version control system, essential for development",
+        "ru": "Распределенная система контроля версий, необходимая для разработки",
+        "zh": "分布式版本控制系统，软件开发必备工具"
+      },
+      "short_name": "GIT",
+      "color": "#F05032",
+      "icon_path": "icons/git.png",
+      "official_url": "https://git-scm.com/download/win",
+      "download_resolver": {
+        "type": "github",
+        "owner": "git-for-windows",
+        "repo": "git",
+        "pattern": "Git-.*-64-bit\\.exe"
+      },
+      "installer_args": [
+        "/VERYSILENT",
+        "/NORESTART",
+        "/SUPPRESSMSGBOXES"
+      ],
+      "winget_id": "Git.Git",
+      "category": "dev_tools",
+      "registry_names": [
+        "Git"
+      ],
+      "check_paths": [
+        "C:/Program Files/Git/bin/git.exe",
+        "C:/Program Files (x86)/Git/bin/git.exe"
+      ]
+    },
+    {
+      "id": "python",
+      "names": {
+        "fr": "Python",
+        "en": "Python",
+        "ru": "Python",
+        "zh": "Python"
+      },
+      "description": {
+        "fr": "Langage de programmation polyvalent, populaire pour le scripting et l'IA",
+        "en": "Versatile language popular for scripting, data science and AI",
+        "ru": "Универсальный язык программирования, популярный в скриптах, анализе данных и ИИ",
+        "zh": "广泛应用于脚本编写、数据科学和人工智能的通用编程语言"
+      },
+      "short_name": "PY",
+      "color": "#3776AB",
+      "icon_path": "icons/python.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=9PNRBTZXMB4Z",
+      "official_url": "https://www.python.org/downloads/windows/",
+      "download_url": "https://www.python.org/ftp/python/3.13.0/python-3.13.0-amd64.exe",
+      "download_resolver": {
+        "type": "python"
+      },
+      "installer_args": [
+        "/quiet",
+        "InstallAllUsers=1",
+        "PrependPath=1"
+      ],
+      "winget_id": "Python.Python.3",
+      "category": "dev_tools",
+      "registry_names": [
+        "Python 3",
+        "Python 2"
+      ],
+      "check_paths": [
+        "C:/Program Files/Python3*/python.exe",
+        "C:/Program Files (x86)/Python3*/python.exe",
+        "%LOCALAPPDATA%/Programs/Python/Python3*/python.exe",
+        "%LOCALAPPDATA%/Microsoft/WindowsApps/python3.exe",
+        "%LOCALAPPDATA%/Microsoft/WindowsApps/PythonSoftwareFoundation.Python.3*/python.exe"
+      ]
+    },
+    {
+      "id": "nodejs",
+      "names": {
+        "fr": "Node.js",
+        "en": "Node.js",
+        "ru": "Node.js",
+        "zh": "Node.js"
+      },
+      "description": {
+        "fr": "Runtime JavaScript côté serveur, base de l'écosystème npm",
+        "en": "Server-side JavaScript runtime, backbone of the npm ecosystem",
+        "ru": "Серверная среда выполнения JavaScript, основа экосистемы npm",
+        "zh": "基于 Chrome V8 引擎的 JavaScript 运行环境，npm 生态的核心"
+      },
+      "short_name": "NODE",
+      "color": "#339933",
+      "icon_path": "icons/nodejs.png",
+      "official_url": "https://nodejs.org/en/download/",
+      "download_resolver": {
+        "type": "nodejs"
+      },
+      "winget_id": "OpenJS.NodeJS",
+      "category": "dev_tools",
+      "registry_names": [
+        "Node.js"
+      ],
+      "check_paths": [
+        "C:/Program Files/nodejs/node.exe",
+        "C:/Program Files (x86)/nodejs/node.exe"
+      ]
+    },
+    {
+      "id": "docker",
+      "names": {
+        "fr": "Docker Desktop",
+        "en": "Docker Desktop",
+        "ru": "Docker Desktop",
+        "zh": "Docker Desktop"
+      },
+      "description": {
+        "fr": "Conteneurisation d'applications avec interface graphique",
+        "en": "Application containerization with a graphical interface",
+        "ru": "Контейнеризация приложений с графическим интерфейсом",
+        "zh": "提供图形界面的应用程序容器化管理平台"
+      },
+      "short_name": "DCK",
+      "color": "#2496ED",
+      "icon_path": "icons/docker.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XP8CBJ40XLBWKX",
+      "official_url": "https://www.docker.com/products/docker-desktop/",
+      "download_url": "https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe",
+      "installer_args": [
+        "install",
+        "--quiet",
+        "--accept-license"
+      ],
+      "winget_id": "Docker.DockerDesktop",
+      "category": "dev_tools",
+      "registry_names": [
+        "Docker Desktop"
+      ],
+      "check_paths": [
+        "C:/Program Files/Docker/Docker/Docker Desktop.exe"
+      ]
+    },
+    {
+      "id": "teamviewer",
+      "names": {
+        "fr": "TeamViewer",
+        "en": "TeamViewer",
+        "ru": "TeamViewer",
+        "zh": "TeamViewer"
+      },
+      "description": {
+        "fr": "Logiciel de contrôle à distance et d'assistance",
+        "en": "Remote control and support software",
+        "ru": "Программа для удаленного управления компьютером и технической поддержки",
+        "zh": "用于远程控制、桌面共享和在线技术支持的软件"
+      },
+      "short_name": "TMV",
+      "color": "#0055c8",
+      "icon_path": "icons/teamviewer.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XPDM17HK323C4X",
+      "official_url": "https://www.teamviewer.com",
+      "download_url": "https://download.teamviewer.com/download/TeamViewer_Setup_x64.exe",
+      "winget_id": "TeamViewer.TeamViewer",
+      "category": "utilities",
+      "registry_names": [
+        "TeamViewer"
+      ],
+      "check_paths": [
+        "C:/Program Files/TeamViewer/TeamViewer.exe",
+        "C:/Program Files (x86)/TeamViewer/TeamViewer.exe"
+      ]
+    },
+    {
+      "id": "winrar",
+      "names": {
+        "fr": "WinRAR",
+        "en": "WinRAR",
+        "ru": "WinRAR",
+        "zh": "WinRAR"
+      },
+      "description": {
+        "fr": "Logiciel de compression et décompression d'archives",
+        "en": "Archive compression and decompression software",
+        "ru": "Программа для создания и распаковки архивов RAR, ZIP и других",
+        "zh": "经典好用的文件压缩与解压缩管理工具"
+      },
+      "short_name": "RAR",
+      "color": "#121A4B",
+      "icon_path": "icons/winrar.png",
+      "official_url": "https://www.rarlab.com/download.htm",
+      "download_resolver": {
+        "type": "winrar"
+      },
+      "winget_id": "RARLab.WinRAR",
+      "category": "utilities",
+      "registry_names": [
+        "WinRAR"
+      ],
+      "check_paths": [
+        "C:/Program Files/WinRAR/WinRAR.exe"
+      ]
+    },
+    {
+      "id": "adobe_reader",
+      "names": {
+        "fr": "Adobe Acrobat Reader",
+        "en": "Adobe Acrobat Reader",
+        "ru": "Adobe Acrobat Reader",
+        "zh": "Adobe Acrobat Reader"
+      },
+      "description": {
+        "fr": "Lecteur PDF gratuit d'Adobe, référence pour lire et annoter les PDF",
+        "en": "Adobe's free PDF reader, the standard for viewing and annotating PDFs",
+        "ru": "Бесплатный PDF-просмотрщик Adobe — стандарт для чтения и аннотирования PDF",
+        "zh": "Adobe 出品的免费 PDF 阅读器，是查看和注释 PDF 文件的行业标准"
+      },
+      "short_name": "PDF",
+      "color": "#EC1C24",
+      "icon_path": "icons/adobe_reader.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XPDP273C0XHQH2",
+      "official_url": "https://get.adobe.com/reader/",
+      "download_url": "https://get.adobe.com/reader/download?trackingid=R9BVLF8K&accepted=cr",
+      "installer_args": [
+        "/sAll",
+        "/rs",
+        "/msi",
+        "EULA_ACCEPT=YES"
+      ],
+      "winget_id": "Adobe.Acrobat.Reader.64-bit",
+      "category": "utilities",
+      "registry_names": [
+        "Adobe Acrobat Reader DC",
+        "Adobe Acrobat (64-bit)",
+        "Adobe Acrobat DC"
+      ],
+      "check_paths": [
+        "C:/Program Files/Adobe/Acrobat DC/Acrobat/Acrobat.exe",
+        "C:/Program Files (x86)/Adobe/Acrobat Reader DC/Reader/AcroRd32.exe",
+        "C:/Program Files/Adobe/Acrobat Reader DC/Reader/AcroRd32.exe"
+      ]
+    },
+    {
+      "id": "handbrake",
+      "names": {
+        "fr": "HandBrake",
+        "en": "HandBrake",
+        "ru": "HandBrake",
+        "zh": "HandBrake"
+      },
+      "description": {
+        "fr": "Convertisseur vidéo open-source multiformat",
+        "en": "Open-source video transcoder",
+        "ru": "Бесплатный видеоконвертер с открытым исходным кодом",
+        "zh": "开源且跨平台的多媒体视频格式转换工具"
+      },
+      "short_name": "HBK",
+      "color": "#2a2a2a",
+      "icon_path": "icons/handbrake.png",
+      "official_url": "https://handbrake.fr/",
+      "download_resolver": {
+        "type": "github",
+        "owner": "HandBrake",
+        "repo": "HandBrake",
+        "pattern": "HandBrake-.*-x86_64-Win_GUI\\.exe"
+      },
+      "winget_id": "HandBrake.HandBrake",
+      "category": "media",
+      "registry_names": [
+        "HandBrake"
+      ],
+      "check_paths": [
+        "C:/Program Files/HandBrake/HandBrake.exe"
+      ]
+    },
+    {
+      "id": "audacity",
+      "names": {
+        "fr": "Audacity",
+        "en": "Audacity",
+        "ru": "Audacity",
+        "zh": "Audacity"
+      },
+      "description": {
+        "fr": "Éditeur et enregistreur audio multi-pistes",
+        "en": "Multi-track audio editor and recorder",
+        "ru": "Многодорожечный аудиоредактор и рекордер с открытым кодом",
+        "zh": "开源免费的跨平台多轨音频编辑器与录音工具"
+      },
+      "short_name": "AUD",
+      "color": "#0000CC",
+      "icon_path": "icons/audacity.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XP8K0J757HHRDW",
+      "official_url": "https://www.audacityteam.org/",
+      "download_resolver": {
+        "type": "github",
+        "owner": "audacity",
+        "repo": "audacity",
+        "pattern": "audacity-win-.*-64bit\\.exe"
+      },
+      "installer_args": [
+        "/VERYSILENT",
+        "/NORESTART",
+        "/SUPPRESSMSGBOXES"
+      ],
+      "winget_id": "Audacity.Audacity",
+      "category": "media",
+      "registry_names": [
+        "Audacity"
+      ],
+      "check_paths": [
+        "C:/Program Files/Audacity/Audacity.exe",
+        "C:/Program Files (x86)/Audacity/Audacity.exe"
+      ]
+    },
+    {
+      "id": "paintnet",
+      "names": {
+        "fr": "Paint.NET",
+        "en": "Paint.NET",
+        "ru": "Paint.NET",
+        "zh": "Paint.NET"
+      },
+      "description": {
+        "fr": "Éditeur d'images et de photos gratuit et puissant",
+        "en": "Free and powerful image and photo editor",
+        "ru": "Бесплатный и мощный редактор изображений и фотографий",
+        "zh": "免费且功能强大的图像与照片处理编辑器"
+      },
+      "short_name": "PDN",
+      "color": "#336699",
+      "icon_path": "icons/paintnet.png",
+      "official_url": "https://www.getpaint.net/",
+      "download_resolver": {
+        "type": "github",
+        "owner": "paintdotnet",
+        "repo": "release",
+        "pattern": "paint\\.net\\.\\d+\\.\\d+\\.\\d+\\.install\\.anycpu\\.zip"
+      },
+      "installer_args": [
+        "/auto"
+      ],
+      "winget_id": "dotPDNLLC.paint.net",
+      "category": "media",
+      "registry_names": [
+        "paint.net"
+      ],
+      "check_paths": [
+        "C:/Program Files/paint.net/paintdotnet.exe"
+      ]
+    },
+    {
+      "id": "filezilla",
+      "names": {
+        "fr": "FileZilla",
+        "en": "FileZilla",
+        "ru": "FileZilla",
+        "zh": "FileZilla"
+      },
+      "description": {
+        "fr": "Client FTP, FTPS et SFTP rapide et fiable",
+        "en": "Fast and reliable FTP, FTPS and SFTP client",
+        "ru": "Быстрый и надежный клиент FTP, FTPS и SFTP",
+        "zh": "快速、可靠且跨平台的 FTP、FTPS 和 SFTP 客户端"
+      },
+      "short_name": "FZ",
+      "color": "#B90000",
+      "icon_path": "icons/filezilla.png",
+      "official_url": "https://filezilla-project.org/",
+      "download_url": "https://download.filezilla-project.org/client/FileZilla_3.70.5_win64_sponsored2-setup.exe",
+      "download_resolver": {
+        "type": "filezilla"
+      },
+      "winget_id": "TimKosse.FileZillaClient",
+      "category": "dev_tools",
+      "registry_names": [
+        "FileZilla Client"
+      ],
+      "check_paths": [
+        "C:/Program Files/FileZilla FTP Client/filezilla.exe"
+      ]
+    },
+    {
+      "id": "notepadplusplus",
+      "names": {
+        "fr": "Notepad++",
+        "en": "Notepad++",
+        "ru": "Notepad++",
+        "zh": "Notepad++"
+      },
+      "description": {
+        "fr": "Éditeur de code source léger et très populaire",
+        "en": "Lightweight and popular source code editor",
+        "ru": "Легковесный, быстрый и популярный текстовый редактор кода",
+        "zh": "深受开发者喜爱的轻量、高效文本与源码编辑器"
+      },
+      "short_name": "NPP",
+      "color": "#90E090",
+      "icon_path": "icons/notepadplusplus.png",
+      "official_url": "https://notepad-plus-plus.org/",
+      "download_resolver": {
+        "type": "github",
+        "owner": "notepad-plus-plus",
+        "repo": "notepad-plus-plus",
+        "pattern": "npp\\..*\\.Installer\\.x64\\.exe"
+      },
+      "winget_id": "Notepad++.Notepad++",
+      "category": "dev_tools",
+      "registry_names": [
+        "Notepad++"
+      ],
+      "check_paths": [
+        "C:/Program Files/Notepad++/notepad++.exe",
+        "C:/Program Files (x86)/Notepad++/notepad++.exe"
+      ]
+    },
+    {
+      "id": "winscp",
+      "names": {
+        "fr": "WinSCP",
+        "en": "WinSCP",
+        "ru": "WinSCP",
+        "zh": "WinSCP"
+      },
+      "description": {
+        "fr": "Client SFTP, FTP, WebDAV et SCP populaire",
+        "en": "Popular SFTP, FTP, WebDAV, Amazon S3 and SCP client",
+        "ru": "Популярный графический клиент SFTP, FTP, WebDAV, S3 и SCP для Windows",
+        "zh": "Windows 平台下常用的 SFTP、FTP、WebDAV、S3 与 SCP 图形客户端"
+      },
+      "short_name": "SCP",
+      "color": "#181818",
+      "icon_path": "icons/winscp.png",
+      "official_url": "https://winscp.net/",
+      "download_resolver": {
+        "type": "winscp"
+      },
+      "installer_args": [
+        "/VERYSILENT",
+        "/NORESTART",
+        "/SUPPRESSMSGBOXES"
+      ],
+      "winget_id": "WinSCP.WinSCP",
+      "category": "dev_tools",
+      "registry_names": [
+        "WinSCP"
+      ],
+      "check_paths": [
+        "C:/Program Files (x86)/WinSCP/WinSCP.exe",
+        "C:/Program Files/WinSCP/WinSCP.exe"
+      ]
+    },
+    {
+      "id": "putty",
+      "names": {
+        "fr": "PuTTY",
+        "en": "PuTTY",
+        "ru": "PuTTY",
+        "zh": "PuTTY"
+      },
+      "description": {
+        "fr": "Client SSH et Telnet gratuit",
+        "en": "Free SSH and Telnet client",
+        "ru": "Бесплатный клиент для протоколов SSH, Telnet и rlogin",
+        "zh": "免费开源的 SSH、Telnet 以及串口连接客户端"
+      },
+      "short_name": "PTY",
+      "color": "#000000",
+      "icon_path": "icons/putty.png",
+      "store_url": "ms-windows-store://pdp/?ProductId=XPFNZKSKLBP7RJ",
+      "official_url": "https://www.chiark.greenend.org.uk/~sgtatham/putty/",
+      "download_resolver": {
+        "type": "putty"
+      },
+      "winget_id": "PuTTY.PuTTY",
+      "category": "dev_tools",
+      "registry_names": [
+        "PuTTY"
+      ],
+      "check_paths": [
+        "C:/Program Files/PuTTY/putty.exe",
+        "C:/Program Files (x86)/PuTTY/putty.exe"
+      ]
+    }
+  ]
+}

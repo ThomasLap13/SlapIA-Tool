@@ -1,0 +1,130 @@
+<Window x:Class="InstallPilot.WizardWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="InstallPilot" Height="500" Width="480"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="{DynamicResource bgBrush}">
+
+    <Window.Resources>
+        <ResourceDictionary Source="InstallPilotStyles.xaml"/>
+    </Window.Resources>
+
+    <Border Background="{DynamicResource surfaceBrush}" BorderBrush="{DynamicResource borderBrush}"
+            BorderThickness="1" CornerRadius="12" Margin="12">
+        <Grid>
+            <!-- Page 0 : Bienvenue -->
+            <Grid x:Name="PageWelcome" Margin="36,32,36,32">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,0,0,24">
+                    <Grid HorizontalAlignment="Center" Margin="0,0,0,14">
+                        <Ellipse x:Name="WizLogoFallback" Width="60" Height="60" Fill="{DynamicResource accentBrush}"/>
+                        <Image x:Name="WizLogoImg" Width="60" Height="60" Stretch="Uniform" Visibility="Collapsed"/>
+                    </Grid>
+                    <TextBlock x:Name="TxtWelcomeTitle" Text="Bienvenue sur InstallPilot"
+                               FontFamily="Segoe UI" FontSize="22" FontWeight="Bold"
+                               Foreground="{DynamicResource fgBrush}" HorizontalAlignment="Center"/>
+                    <TextBlock x:Name="TxtWelcomeDesc" Text="Réinstallez tous vos logiciels essentiels en quelques clics."
+                               FontFamily="Segoe UI" FontSize="12" Foreground="{DynamicResource fg2Brush}"
+                               HorizontalAlignment="Center" Margin="0,6,0,0"
+                               TextWrapping="Wrap" TextAlignment="Center"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                    <Border Background="{DynamicResource bgBrush}" BorderBrush="{DynamicResource borderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="16,12" Margin="0,0,0,8">
+                        <TextBlock x:Name="TxtFeature1" FontFamily="Segoe UI" FontSize="12"
+                                   Foreground="{DynamicResource fgBrush}" TextWrapping="Wrap"/>
+                    </Border>
+                    <Border Background="{DynamicResource bgBrush}" BorderBrush="{DynamicResource borderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="16,12" Margin="0,0,0,8">
+                        <TextBlock x:Name="TxtFeature2" FontFamily="Segoe UI" FontSize="12"
+                                   Foreground="{DynamicResource fgBrush}" TextWrapping="Wrap"/>
+                    </Border>
+                    <Border Background="{DynamicResource bgBrush}" BorderBrush="{DynamicResource borderBrush}"
+                            BorderThickness="1" CornerRadius="8" Padding="16,12">
+                        <TextBlock x:Name="TxtFeature3" FontFamily="Segoe UI" FontSize="12"
+                                   Foreground="{DynamicResource fgBrush}" TextWrapping="Wrap"/>
+                    </Border>
+                </StackPanel>
+
+                <Button x:Name="BtnStart" Grid.Row="2" Content="Commencer"
+                        HorizontalAlignment="Right" Width="140" Height="40"
+                        Margin="0,24,0,0" Click="BtnStart_Click">
+                    <Button.Style>
+                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                            <Setter Property="Background" Value="{DynamicResource accentBrush}"/>
+                            <Setter Property="Foreground" Value="{DynamicResource accent_fgBrush}"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+            </Grid>
+
+            <!-- Page 1 : Préférences -->
+            <Grid x:Name="PagePrefs" Margin="36,32,36,32" Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Margin="0,0,0,28">
+                    <TextBlock x:Name="TxtPrefTitle" Text="Personnalisez vos préférences"
+                               FontFamily="Segoe UI" FontSize="18" FontWeight="Bold"
+                               Foreground="{DynamicResource fgBrush}"/>
+                    <Border Height="2" Background="{DynamicResource accentBrush}" Width="36"
+                            HorizontalAlignment="Left" CornerRadius="1" Margin="0,6,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                    <Border Background="{DynamicResource bgBrush}" BorderBrush="{DynamicResource borderBrush}"
+                            BorderThickness="1" CornerRadius="6" Height="46" Margin="0,0,0,10">
+                        <Grid Margin="14,0">
+                            <TextBlock x:Name="LblPrefLang" VerticalAlignment="Center"
+                                       FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{DynamicResource fgBrush}"/>
+                            <ComboBox x:Name="ComboLang" HorizontalAlignment="Right" Width="155"
+                                      VerticalAlignment="Center" SelectionChanged="ComboLang_SelectionChanged"/>
+                        </Grid>
+                    </Border>
+                    <Border Background="{DynamicResource bgBrush}" BorderBrush="{DynamicResource borderBrush}"
+                            BorderThickness="1" CornerRadius="6" Height="46" Margin="0,0,0,10">
+                        <Grid Margin="14,0">
+                            <TextBlock x:Name="LblPrefTheme" VerticalAlignment="Center"
+                                       FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{DynamicResource fgBrush}"/>
+                            <ComboBox x:Name="ComboTheme" HorizontalAlignment="Right" Width="155"
+                                      VerticalAlignment="Center" SelectionChanged="ComboTheme_SelectionChanged"/>
+                        </Grid>
+                    </Border>
+                    <Border Background="{DynamicResource bgBrush}" BorderBrush="{DynamicResource borderBrush}"
+                            BorderThickness="1" CornerRadius="6" Height="46">
+                        <Grid Margin="14,0">
+                            <TextBlock x:Name="LblPrefSource" VerticalAlignment="Center"
+                                       FontFamily="Segoe UI" FontWeight="SemiBold" Foreground="{DynamicResource fgBrush}"/>
+                            <ComboBox x:Name="ComboSource" HorizontalAlignment="Right" Width="185"
+                                      VerticalAlignment="Center" SelectionChanged="ComboSource_SelectionChanged"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <Grid Grid.Row="2" Margin="0,24,0,0">
+                    <Button x:Name="BtnBack" Content="Retour" Width="100" Height="36"
+                            HorizontalAlignment="Left" Click="BtnBack_Click"/>
+                    <Button x:Name="BtnFinish" Content="Terminer" Width="140" Height="40"
+                            HorizontalAlignment="Right" Click="BtnFinish_Click">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                <Setter Property="Background" Value="{DynamicResource accentBrush}"/>
+                                <Setter Property="Foreground" Value="{DynamicResource accent_fgBrush}"/>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

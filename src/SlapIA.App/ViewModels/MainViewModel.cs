@@ -13,6 +13,7 @@ public partial class MainViewModel : ObservableObject
     public HardwareViewModel Hardware { get; }
     public MonitoringViewModel Monitoring { get; }
     public SoftwareViewModel Software { get; }
+    public InstallPilotHostViewModel InstallPilot { get; } = new();
 
     [ObservableProperty] private object? currentView;
     [ObservableProperty] private string selectedNavKey = "overview";
@@ -30,6 +31,7 @@ public partial class MainViewModel : ObservableObject
         "hardware" => LocalizationService.Instance["Page_Hardware"],
         "monitoring" => LocalizationService.Instance["Page_Monitoring"],
         "software" => LocalizationService.Instance["Page_Software"],
+        "installpilot" => LocalizationService.Instance["Page_InstallPilot"],
         _ => LocalizationService.Instance["Page_Overview"],
     };
 
@@ -128,6 +130,14 @@ public partial class MainViewModel : ObservableObject
         _ = Software.LoadAsync();
     }
 
+    [RelayCommand]
+    private void NavigateInstallPilot()
+    {
+        Monitoring.Stop();
+        CurrentView = InstallPilot;
+        SelectedNavKey = "installpilot";
+    }
+
     /// <summary>
     /// Routes to a page by its nav key. RadioButton.IsChecked can become true through paths
     /// that never raise Click (keyboard arrow navigation between grouped radio buttons, UI
@@ -145,6 +155,7 @@ public partial class MainViewModel : ObservableObject
             case "hardware": NavigateHardwareCommand.Execute(null); break;
             case "monitoring": NavigateMonitoringCommand.Execute(null); break;
             case "software": NavigateSoftwareCommand.Execute(null); break;
+            case "installpilot": NavigateInstallPilotCommand.Execute(null); break;
         }
     }
 

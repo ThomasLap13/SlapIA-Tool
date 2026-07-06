@@ -1,0 +1,74 @@
+<Window x:Class="InstallPilot.PreferencesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Préférences" Height="340" Width="450"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="{DynamicResource bgBrush}">
+    
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="InstallPilotStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- Custom row layout style -->
+            <Style x:Key="SettingRowStyle" TargetType="{x:Type Border}">
+                <Setter Property="Background" Value="{DynamicResource bgBrush}"/>
+                <Setter Property="BorderBrush" Value="{DynamicResource borderBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="6"/>
+                <Setter Property="Height" Value="44"/>
+                <Setter Property="Margin" Value="0,6"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Grid>
+        <Border Background="{DynamicResource surfaceBrush}" CornerRadius="12" Margin="16" BorderBrush="{DynamicResource borderBrush}" BorderThickness="1">
+            <Grid Margin="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Title Header -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                    <!-- Placeholder or logo image could go here -->
+                    <TextBlock x:Name="TxtHeader" Text="Personnalisez vos préférences" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold" Foreground="{DynamicResource fgBrush}"/>
+                </StackPanel>
+
+                <!-- Settings Form -->
+                <StackPanel Grid.Row="1" VerticalAlignment="Center">
+                    <!-- Language Row -->
+                    <Border Style="{StaticResource SettingRowStyle}">
+                        <Grid Margin="12,0">
+                            <TextBlock x:Name="LblLang" Text="Langue de l'application" VerticalAlignment="Center" FontWeight="Bold" Foreground="{DynamicResource fgBrush}"/>
+                            <ComboBox x:Name="ComboLang" HorizontalAlignment="Right" Width="140" VerticalAlignment="Center" SelectionChanged="ComboLang_SelectionChanged"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Theme Row -->
+                    <Border Style="{StaticResource SettingRowStyle}">
+                        <Grid Margin="12,0">
+                            <TextBlock x:Name="LblTheme" Text="Thème graphique" VerticalAlignment="Center" FontWeight="Bold" Foreground="{DynamicResource fgBrush}"/>
+                            <ComboBox x:Name="ComboTheme" HorizontalAlignment="Right" Width="140" VerticalAlignment="Center" SelectionChanged="ComboTheme_SelectionChanged"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Preferred Source Row -->
+                    <Border Style="{StaticResource SettingRowStyle}">
+                        <Grid Margin="12,0">
+                            <TextBlock x:Name="LblSource" Text="Source préférée par défaut" VerticalAlignment="Center" FontWeight="Bold" Foreground="{DynamicResource fgBrush}"/>
+                            <ComboBox x:Name="ComboSource" HorizontalAlignment="Right" Width="180" VerticalAlignment="Center" SelectionChanged="ComboSource_SelectionChanged"/>
+                        </Grid>
+                    </Border>
+                </StackPanel>
+
+                <!-- Footer button -->
+                <Button x:Name="BtnClose" Grid.Row="2" Content="Fermer" HorizontalAlignment="Center" Width="100" Height="32" Click="BtnClose_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

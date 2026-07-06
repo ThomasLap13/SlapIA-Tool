@@ -1,6 +1,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Threading;
+using InstallPilot;
 using SlapIA.App.Services;
 using Velopack;
 
@@ -31,6 +32,18 @@ public partial class App : Application
         // Load the correct Light/Dark dictionary before any window is created, so there's no
         // flash of the wrong theme, then start watching for live OS theme changes.
         ThemeService.Start();
+
+        // InstallPilot's own brushes (bgBrush, surfaceBrush, ...) must exist before ANY window
+        // that uses them can open - including the global Preferences button, which can be
+        // clicked before the InstallPilot tab is ever visited.
+        I18n.LoadSettings();
+        I18n.lang_code = LocalizationService.Instance.CurrentLanguage;
+        I18n.theme = ThemeService.CurrentTheme == AppTheme.Dark ? "dark" : "light";
+        I18n.ApplyTheme(this);
+
+        // If SlapIA's theme later changes for a reason InstallPilot's own combo didn't trigger
+        // (the OS live-switch), keep I18n's brushes/state in sync too.
+        ThemeService.ThemeChanged += theme => I18n.SetTheme(theme == AppTheme.Dark ? "dark" : "light");
 
         var window = new MainWindow();
         MainWindow = window;

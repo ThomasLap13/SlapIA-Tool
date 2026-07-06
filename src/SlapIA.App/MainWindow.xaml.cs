@@ -53,9 +53,12 @@ public partial class MainWindow : Window
             _viewModel.NavigateByKey(key);
     }
 
-    private void LanguageFr_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        => LocalizationService.Instance.SetLanguage(LocalizationService.French);
-
-    private void LanguageEn_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        => LocalizationService.Instance.SetLanguage(LocalizationService.English);
+    /// <summary>Single, app-wide preferences entry point (language, theme, preferred install
+    /// source) - reuses InstallPilot's own Preferences dialog instead of duplicating a second
+    /// language switcher just for the rest of the app.</summary>
+    private void BtnGlobalPreferences_Click(object sender, RoutedEventArgs e)
+    {
+        var prefWin = new InstallPilot.PreferencesWindow(this, () => { });
+        prefWin.ShowDialog();
+    }
 }

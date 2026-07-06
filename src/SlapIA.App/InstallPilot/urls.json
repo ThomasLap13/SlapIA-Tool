@@ -1,0 +1,8 @@
+{
+  "epic": "https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi",
+  "keepass": "https://downloads.sourceforge.net/project/keepass/KeePass%202.x/2.61.1/KeePass-2.61.1-Setup.exe",
+  "nvidia_app": "https://uk.download.nvidia.com/nvapp/client/11.0.7.247/NVIDIA_app_v11.0.7.247.exe",
+  "nodejs": "https://nodejs.org/dist/v22.2.0/node-v22.2.0-x64.msi",
+  "filezilla": "https://sourceforge.net/projects/filezilla/files/latest/download",
+  "putty": "https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.84-installer.msi"
+}

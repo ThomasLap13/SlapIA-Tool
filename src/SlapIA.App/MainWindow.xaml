@@ -7,6 +7,7 @@
         xmlns:vm="clr-namespace:SlapIA.App.ViewModels"
         xmlns:views="clr-namespace:SlapIA.App.Views"
         xmlns:loc="clr-namespace:SlapIA.App.Services"
+        xmlns:ip="clr-namespace:InstallPilot"
         mc:Ignorable="d"
         Title="SlapIA Tool" Height="740" Width="1180" MinHeight="580" MinWidth="960"
         Background="{DynamicResource AppBackgroundBrush}"
@@ -26,6 +27,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:SoftwareViewModel}">
             <views:SoftwareView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:InstallPilotHostViewModel}">
+            <ip:InstallPilotView/>
         </DataTemplate>
     </Window.Resources>
 
@@ -60,36 +64,9 @@
                                Visibility="{Binding UpdateStatus, Converter={StaticResource StringToVisibilityConverter}}"/>
                     <TextBlock Text="{Binding AppVersion}" Style="{StaticResource LabelText}" Margin="2,8,0,0" HorizontalAlignment="Center"/>
 
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2,10,2,0">
-                        <TextBlock Text="{loc:Tr Language_French}" Cursor="Hand" FontSize="11" Margin="0,0,10,0"
-                                   MouseLeftButtonUp="LanguageFr_Click">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock" BasedOn="{StaticResource LabelText}">
-                                    <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentLanguage}" Value="fr">
-                                            <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
-                                            <Setter Property="FontWeight" Value="Bold"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                        <TextBlock Text="{loc:Tr Language_English}" Cursor="Hand" FontSize="11"
-                                   MouseLeftButtonUp="LanguageEn_Click">
-                            <TextBlock.Style>
-                                <Style TargetType="TextBlock" BasedOn="{StaticResource LabelText}">
-                                    <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentLanguage}" Value="en">
-                                            <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
-                                            <Setter Property="FontWeight" Value="Bold"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </TextBlock.Style>
-                        </TextBlock>
-                    </StackPanel>
+                    <Button Content="{loc:Tr Sidebar_Preferences}" Click="BtnGlobalPreferences_Click"
+                            Style="{StaticResource PillButtonStyle}" HorizontalAlignment="Stretch"
+                            Height="36" Padding="12,8" FontSize="12.5" Margin="0,10,0,0"/>
                 </StackPanel>
 
                 <StackPanel Margin="0,0,0,0">
@@ -128,6 +105,15 @@
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource NavSoftwareIconGeometry}" Stroke="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=Foreground}" StrokeThickness="1.3" StrokeLineJoin="Round" Stretch="Uniform" Width="15" Height="15" Margin="0,0,10,0"/>
                             <TextBlock Text="{loc:Tr Nav_Software}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Tag="installpilot"
+                                 IsChecked="{Binding SelectedNavKey, Converter={StaticResource NavSelectionConverter}, ConverterParameter=installpilot, Mode=OneWay}"
+                                 Command="{Binding NavigateInstallPilotCommand}" Checked="NavRadioButton_Checked" Margin="0,0,0,2">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Data="{StaticResource NavSoftwareIconGeometry}" Stroke="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=Foreground}" StrokeThickness="1.3" StrokeLineJoin="Round" Stretch="Uniform" Width="15" Height="15" Margin="0,0,10,0"/>
+                            <TextBlock Text="{loc:Tr Nav_InstallPilot}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>

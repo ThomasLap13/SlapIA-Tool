@@ -21,11 +21,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- InstallPilot tab assets, ported as-is from the standalone InstallPilot app -->
+    <Resource Include="InstallPilot\icons\**\*.*" />
+    <Resource Include="InstallPilot\app_config.json" />
+    <Resource Include="InstallPilot\urls.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- UseWindowsForms is only needed for the tray icon's NotifyIcon (TrayIconService.cs,
          which references it via an explicit "Forms" alias). Its auto-added global using
          collides with System.Windows (Application, UserControl, ...) across every WPF file,
          so drop it and keep usages explicit/aliased instead. -->
     <Using Remove="System.Windows.Forms" />
+    <!-- Same rationale: InstallPilot's ported code uses System.Windows.Media types (Color,
+         Brush, Image, FontFamily, ...) that collide with System.Drawing's globally-used
+         equivalents. TrayIconService.cs already fully-qualifies System.Drawing.Icon, so it
+         doesn't rely on this implicit using. -->
+    <Using Remove="System.Drawing" />
   </ItemGroup>
 
   <ItemGroup>

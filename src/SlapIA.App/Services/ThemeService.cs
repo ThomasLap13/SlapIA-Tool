@@ -20,6 +20,11 @@ public class ThemeService : IDisposable
 {
     public AppTheme CurrentTheme { get; private set; }
 
+    /// <summary>Raised whenever the applied theme actually changes, whether from the OS live
+    /// switch or a manual <see cref="SetTheme"/> call - lets other theme systems (InstallPilot's
+    /// own I18n) stay in sync with the single, app-wide theme control.</summary>
+    public event Action<AppTheme>? ThemeChanged;
+
     public ThemeService()
     {
         CurrentTheme = DetectSystemTheme();
@@ -30,6 +35,18 @@ public class ThemeService : IDisposable
     {
         ApplyResources(CurrentTheme);
         SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+    }
+
+    /// <summary>Manually overrides the theme (e.g. from the app's Preferences dialog), independent
+    /// of the OS setting.</summary>
+    public void SetTheme(AppTheme theme)
+    {
+        if (theme == CurrentTheme)
+            return;
+
+        CurrentTheme = theme;
+        AnimateThemeChange(theme);
+        ThemeChanged?.Invoke(theme);
     }
 
     public void Dispose()
@@ -49,6 +66,7 @@ public class ThemeService : IDisposable
 
         CurrentTheme = detected;
         Application.Current?.Dispatcher.Invoke(() => AnimateThemeChange(detected));
+        ThemeChanged?.Invoke(detected);
     }
 
     private static void AnimateThemeChange(AppTheme theme)
