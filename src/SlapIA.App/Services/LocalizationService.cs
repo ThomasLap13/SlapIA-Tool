@@ -145,6 +145,19 @@ public class LocalizationService : INotifyPropertyChanged
             ["Hardware_VolumeFree"] = "{0:0.#} Go libres sur ",
             ["Copy_Tooltip"] = "Copier",
 
+            // BIOS update helper - no vendor exposes a "latest version" API, so this only links
+            // to a search scoped to the detected manufacturer's site plus generic instructions.
+            ["Bios_CheckUpdatesButton"] = "Verifier les mises a jour BIOS sur le site {0}",
+            ["Bios_HowToUpdateTitle"] = "Comment mettre a jour :",
+            ["Bios_Instructions_Asus"] = "1. Telechargez le fichier BIOS (.CAP) correspondant exactement a votre modele\n2. Copiez-le a la racine d'une cle USB formatee en FAT32\n3. Redemarrez et entrez dans le BIOS (touche Suppr ou F2 au demarrage)\n4. Ouvrez EZ Flash 3, selectionnez le fichier et lancez la mise a jour",
+            ["Bios_Instructions_Msi"] = "1. Telechargez le fichier BIOS correspondant exactement a votre modele\n2. Copiez-le a la racine d'une cle USB formatee en FAT32\n3. Redemarrez et entrez dans le BIOS (touche Suppr)\n4. Ouvrez M-Flash, selectionnez le fichier et lancez la mise a jour",
+            ["Bios_Instructions_Gigabyte"] = "1. Telechargez le fichier BIOS correspondant exactement a votre modele\n2. Copiez-le a la racine d'une cle USB formatee en FAT32\n3. Redemarrez et entrez dans le BIOS (touche Suppr)\n4. Ouvrez Q-Flash, selectionnez le fichier et lancez la mise a jour",
+            ["Bios_Instructions_ASRock"] = "1. Telechargez le fichier BIOS correspondant exactement a votre modele\n2. Copiez-le a la racine d'une cle USB formatee en FAT32\n3. Redemarrez et entrez dans le BIOS (touche Suppr ou F2)\n4. Ouvrez Instant Flash, selectionnez le fichier et lancez la mise a jour",
+            ["Bios_Instructions_Dell"] = "Utilisez de preference Dell Command | Update (ou Windows Update), qui detecte et installe la mise a jour BIOS automatiquement. Sinon, telechargez le fichier .EXE depuis le support Dell et executez-le directement sous Windows.",
+            ["Bios_Instructions_Hp"] = "Utilisez de preference HP Support Assistant, qui detecte et installe la mise a jour BIOS automatiquement. Sinon, telechargez le fichier .EXE depuis le support HP et executez-le directement sous Windows.",
+            ["Bios_Instructions_Lenovo"] = "Utilisez de preference Lenovo Vantage (ou Lenovo System Update), qui detecte et installe la mise a jour BIOS automatiquement. Sinon, telechargez l'utilitaire depuis le support Lenovo et suivez les instructions.",
+            ["Bios_Instructions_Generic"] = "Recherchez votre modele exact de carte mere sur le site du fabricant, section Support / Pilotes et BIOS, telechargez la derniere version et suivez les instructions fournies (generalement via une cle USB ou un utilitaire Windows).",
+
             // Monitoring page
             ["Monitoring_Cpu"] = "CPU",
             ["Monitoring_Ram"] = "RAM",
@@ -235,6 +248,17 @@ public class LocalizationService : INotifyPropertyChanged
             ["Hardware_DiskLine"] = "{0:0.#} GB - {1} - {2}",
             ["Hardware_VolumeFree"] = "{0:0.#} GB free of ",
             ["Copy_Tooltip"] = "Copy",
+
+            ["Bios_CheckUpdatesButton"] = "Check for BIOS updates on {0}'s site",
+            ["Bios_HowToUpdateTitle"] = "How to update:",
+            ["Bios_Instructions_Asus"] = "1. Download the BIOS file (.CAP) matching your exact model\n2. Copy it to the root of a FAT32-formatted USB drive\n3. Restart and enter the BIOS (Del or F2 at boot)\n4. Open EZ Flash 3, select the file, and start the update",
+            ["Bios_Instructions_Msi"] = "1. Download the BIOS file matching your exact model\n2. Copy it to the root of a FAT32-formatted USB drive\n3. Restart and enter the BIOS (Del key)\n4. Open M-Flash, select the file, and start the update",
+            ["Bios_Instructions_Gigabyte"] = "1. Download the BIOS file matching your exact model\n2. Copy it to the root of a FAT32-formatted USB drive\n3. Restart and enter the BIOS (Del key)\n4. Open Q-Flash, select the file, and start the update",
+            ["Bios_Instructions_ASRock"] = "1. Download the BIOS file matching your exact model\n2. Copy it to the root of a FAT32-formatted USB drive\n3. Restart and enter the BIOS (Del or F2)\n4. Open Instant Flash, select the file, and start the update",
+            ["Bios_Instructions_Dell"] = "Prefer Dell Command | Update (or Windows Update), which detects and installs the BIOS update automatically. Otherwise, download the .EXE from Dell support and run it directly in Windows.",
+            ["Bios_Instructions_Hp"] = "Prefer HP Support Assistant, which detects and installs the BIOS update automatically. Otherwise, download the .EXE from HP support and run it directly in Windows.",
+            ["Bios_Instructions_Lenovo"] = "Prefer Lenovo Vantage (or Lenovo System Update), which detects and installs the BIOS update automatically. Otherwise, download the utility from Lenovo support and follow the instructions.",
+            ["Bios_Instructions_Generic"] = "Search for your exact motherboard model on the manufacturer's site, under Support / Drivers & BIOS, download the latest version and follow the provided instructions (usually via a USB drive or a Windows utility).",
 
             ["Monitoring_Cpu"] = "CPU",
             ["Monitoring_Ram"] = "RAM",

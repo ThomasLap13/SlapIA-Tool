@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -30,6 +31,30 @@ public partial class HardwareViewModel : ObservableObject
         OnPropertyChanged(nameof(ProcessorCopyText));
         OnPropertyChanged(nameof(MemoryCopyText));
         OnPropertyChanged(nameof(MotherboardCopyText));
+        OnPropertyChanged(nameof(BiosCheckUpdatesButtonText));
+        OnPropertyChanged(nameof(BiosInstructionsText));
+    }
+
+    private (BiosVendor Vendor, string DisplayName, string Domain) BiosVendorInfo
+        => BiosUpdateHelper.DetectVendor(Snapshot?.MotherboardManufacturer);
+
+    public string BiosCheckUpdatesButtonText => string.Format(Loc["Bios_CheckUpdatesButton"], BiosVendorInfo.DisplayName);
+
+    public string BiosInstructionsText => Loc[BiosUpdateHelper.InstructionsKey(BiosVendorInfo.Vendor)];
+
+    [RelayCommand]
+    private void OpenBiosUpdatePage()
+    {
+        var (_, displayName, domain) = BiosVendorInfo;
+        var url = BiosUpdateHelper.BuildSearchUrl(domain, displayName, Snapshot?.MotherboardModel);
+        try
+        {
+            Process.Start(new ProcessStartInfo { FileName = url, UseShellExecute = true });
+        }
+        catch
+        {
+            // Best-effort only; nothing sensible to recover from if the OS can't launch a browser.
+        }
     }
 
     public string ProcessorDetailsText => Snapshot?.Processor is { } cpu
