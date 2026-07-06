@@ -8,6 +8,8 @@ namespace SlapIA.App.ViewModels;
 
 public partial class HardwareViewModel : ObservableObject
 {
+    private static LocalizationService Loc => LocalizationService.Instance;
+
     private readonly ISystemInfoService _systemInfoService;
 
     [ObservableProperty] private bool isLoading;
@@ -16,7 +18,33 @@ public partial class HardwareViewModel : ObservableObject
     public HardwareViewModel(ISystemInfoService systemInfoService)
     {
         _systemInfoService = systemInfoService;
+        Loc.PropertyChanged += (_, _) => RaiseLocalizedTextChanged();
     }
+
+    private void RaiseLocalizedTextChanged()
+    {
+        OnPropertyChanged(nameof(ProcessorDetailsText));
+        OnPropertyChanged(nameof(MemoryTotalText));
+        OnPropertyChanged(nameof(MemoryDetailsText));
+        OnPropertyChanged(nameof(BiosLineText));
+        OnPropertyChanged(nameof(ProcessorCopyText));
+        OnPropertyChanged(nameof(MemoryCopyText));
+        OnPropertyChanged(nameof(MotherboardCopyText));
+    }
+
+    public string ProcessorDetailsText => Snapshot?.Processor is { } cpu
+        ? string.Format(Loc["Hardware_CoresThreads"], cpu.Cores, cpu.LogicalProcessors, cpu.MaxClockSpeedGHz)
+        : "";
+
+    public string MemoryTotalText => Snapshot?.Memory is { } mem
+        ? string.Format(Loc["Overview_MemoryTotalPlain"], mem.TotalGB)
+        : "";
+
+    public string MemoryDetailsText => Snapshot?.Memory is { } mem
+        ? string.Format(Loc["Hardware_MemoryLine"], mem.ModuleCount, mem.Manufacturer ?? "-", mem.MemoryType ?? "-", mem.SpeedMHz?.ToString() ?? "-")
+        : "";
+
+    public string BiosLineText => Snapshot is null ? "" : Loc["Hardware_Bios"] + Snapshot.BiosVersion;
 
     [RelayCommand]
     public async Task LoadAsync(bool forceRefresh = false)
@@ -48,20 +76,19 @@ public partial class HardwareViewModel : ObservableObject
 
     partial void OnSnapshotChanged(SystemSnapshot? value)
     {
-        OnPropertyChanged(nameof(ProcessorCopyText));
-        OnPropertyChanged(nameof(MemoryCopyText));
+        RaiseLocalizedTextChanged();
         OnPropertyChanged(nameof(MotherboardCopyText));
     }
 
     public string ProcessorCopyText => Snapshot?.Processor is { } cpu
-        ? $"{cpu.Name}\n{cpu.Cores} coeurs / {cpu.LogicalProcessors} threads @ {cpu.MaxClockSpeedGHz:0.00} GHz"
+        ? $"{cpu.Name}\n{string.Format(Loc["Hardware_CoresThreads"], cpu.Cores, cpu.LogicalProcessors, cpu.MaxClockSpeedGHz)}"
         : "";
 
     public string MemoryCopyText => Snapshot?.Memory is { } mem
-        ? $"{mem.TotalGB:0.#} Go{(mem.MemoryType is null ? "" : $" {mem.MemoryType}")}{(mem.Manufacturer is null ? "" : $" {mem.Manufacturer}")} - {mem.ModuleCount} barrette(s){(mem.SpeedMHz is { } s ? $" @ {s} MHz" : "")}"
+        ? $"{string.Format(Loc["Overview_MemoryTotalPlain"], mem.TotalGB)}{(mem.MemoryType is null ? "" : $" {mem.MemoryType}")}{(mem.Manufacturer is null ? "" : $" {mem.Manufacturer}")} - {string.Format(Loc["Overview_MemoryModules"], mem.ModuleCount)}{(mem.SpeedMHz is { } s ? $" @ {s} MHz" : "")}"
         : "";
 
     public string MotherboardCopyText => Snapshot is null
         ? ""
-        : $"{Snapshot.MotherboardManufacturer} {Snapshot.MotherboardModel}\nBIOS {Snapshot.BiosVersion}";
+        : $"{Snapshot.MotherboardManufacturer} {Snapshot.MotherboardModel}\n{Loc["Hardware_Bios"]}{Snapshot.BiosVersion}";
 }

@@ -15,7 +15,6 @@ public partial class MainViewModel : ObservableObject
     public SoftwareViewModel Software { get; }
 
     [ObservableProperty] private object? currentView;
-    [ObservableProperty] private string currentPageTitle = "Vue d'ensemble";
     [ObservableProperty] private string selectedNavKey = "overview";
     [ObservableProperty] private string updateStatus = "";
     [ObservableProperty] private bool isCheckingForUpdate;
@@ -23,6 +22,16 @@ public partial class MainViewModel : ObservableObject
     public string AppVersion => Assembly.GetExecutingAssembly().GetName().Version is { } v
         ? $"v{v.Major}.{v.Minor}.{v.Build}"
         : "";
+
+    /// <summary>Computed (not stored) so it stays correct across both navigation and live
+    /// language switches - see the LocalizationService subscription below.</summary>
+    public string CurrentPageTitle => SelectedNavKey switch
+    {
+        "hardware" => LocalizationService.Instance["Page_Hardware"],
+        "monitoring" => LocalizationService.Instance["Page_Monitoring"],
+        "software" => LocalizationService.Instance["Page_Software"],
+        _ => LocalizationService.Instance["Page_Overview"],
+    };
 
     public MainViewModel() : this(new AppUpdateService())
     {
@@ -38,9 +47,13 @@ public partial class MainViewModel : ObservableObject
         Monitoring = new MonitoringViewModel(new PerformanceMonitorService());
         Software = new SoftwareViewModel(new InstalledSoftwareService());
 
+        LocalizationService.Instance.PropertyChanged += (_, _) => OnPropertyChanged(nameof(CurrentPageTitle));
+
         CurrentView = Overview;
         _ = Overview.LoadAsync();
     }
+
+    partial void OnSelectedNavKeyChanged(string value) => OnPropertyChanged(nameof(CurrentPageTitle));
 
     [RelayCommand]
     private async Task CheckForUpdates()
@@ -49,29 +62,30 @@ public partial class MainViewModel : ObservableObject
             return;
 
         IsCheckingForUpdate = true;
-        UpdateStatus = "Recherche de mises a jour...";
+        UpdateStatus = LocalizationService.Instance["Update_Checking"];
         try
         {
             if (!_updateService.IsInstalled)
             {
-                UpdateStatus = "Mise a jour disponible uniquement pour la version installee (setup.exe).";
+                UpdateStatus = LocalizationService.Instance["Update_OnlyInstalled"];
                 return;
             }
 
             var info = await _updateService.CheckForUpdatesAsync();
             if (info is null)
             {
-                UpdateStatus = "Vous utilisez deja la derniere version.";
+                UpdateStatus = LocalizationService.Instance["Update_AlreadyLatest"];
                 return;
             }
 
-            UpdateStatus = $"Telechargement de la version {info.TargetFullRelease.Version}...";
-            await _updateService.DownloadAndApplyAsync(info, progress => UpdateStatus = $"Telechargement... {progress}%");
+            UpdateStatus = string.Format(LocalizationService.Instance["Update_Downloading"], info.TargetFullRelease.Version);
+            await _updateService.DownloadAndApplyAsync(info, progress =>
+                UpdateStatus = string.Format(LocalizationService.Instance["Update_DownloadingProgress"], progress));
             // On success, ApplyUpdatesAndRestart terminates this process - code below rarely runs.
         }
         catch (Exception ex)
         {
-            UpdateStatus = $"Echec de la mise a jour : {ex.Message}";
+            UpdateStatus = string.Format(LocalizationService.Instance["Update_Failed"], ex.Message);
         }
         finally
         {
@@ -84,7 +98,6 @@ public partial class MainViewModel : ObservableObject
     {
         Monitoring.Stop();
         CurrentView = Overview;
-        CurrentPageTitle = "Vue d'ensemble";
         SelectedNavKey = "overview";
         _ = Overview.LoadAsync();
     }
@@ -94,7 +107,6 @@ public partial class MainViewModel : ObservableObject
     {
         Monitoring.Stop();
         CurrentView = Hardware;
-        CurrentPageTitle = "Materiel";
         SelectedNavKey = "hardware";
         _ = Hardware.LoadAsync();
     }
@@ -103,7 +115,6 @@ public partial class MainViewModel : ObservableObject
     private void NavigateMonitoring()
     {
         CurrentView = Monitoring;
-        CurrentPageTitle = "Monitoring temps reel";
         SelectedNavKey = "monitoring";
         Monitoring.Start();
     }
@@ -113,7 +124,6 @@ public partial class MainViewModel : ObservableObject
     {
         Monitoring.Stop();
         CurrentView = Software;
-        CurrentPageTitle = "Logiciels installes";
         SelectedNavKey = "software";
         _ = Software.LoadAsync();
     }

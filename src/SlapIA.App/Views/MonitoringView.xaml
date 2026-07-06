@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             xmlns:loc="clr-namespace:SlapIA.App.Services"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
 
     <Grid>
@@ -15,51 +16,50 @@
         <UniformGrid Grid.Row="0" Columns="4" Margin="0,0,0,16">
             <Border Style="{StaticResource CardBorder}" Margin="0,0,12,0">
                 <StackPanel>
-                    <TextBlock Text="CPU" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="{loc:Tr Monitoring_Cpu}" Style="{StaticResource LabelText}"/>
                     <TextBlock Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10">
                         <Run Text="{Binding CpuUsage, Mode=OneWay, StringFormat={}{0:0.0} %}"/>
                     </TextBlock>
                     <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding CpuUsage, Mode=OneWay}" Foreground="{DynamicResource AccentBrush}"/>
-                    <TextBlock Margin="0,6,0,0"
-                               Text="{Binding CpuTemperature, Mode=OneWay, StringFormat={}{0:0} °C, FallbackValue=N/A, TargetNullValue=N/A}">
-                        <TextBlock.Style>
-                            <Style TargetType="TextBlock" BasedOn="{StaticResource LabelText}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding CpuTemperature}" Value="{x:Null}">
-                                        <Setter Property="ToolTip" Value="Lancez SlapIA Tool en tant qu'administrateur pour afficher la temperature du processeur (necessaire pour acceder aux capteurs materiels)."/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </TextBlock.Style>
-                    </TextBlock>
+
+                    <TextBlock Text="{Binding CpuTemperature, Mode=OneWay, StringFormat={}{0:0} °C}"
+                               Style="{StaticResource LabelText}" Margin="0,6,0,0"
+                               Visibility="{Binding HasCpuTemperature, Converter={StaticResource BoolToVis}}"/>
+
+                    <TextBlock Text="{loc:Tr Monitoring_TempNotAvailable}" ToolTip="{loc:Tr Monitoring_TempTooltip}"
+                               Style="{StaticResource LabelText}" Margin="0,6,0,0"
+                               Visibility="{Binding ShowCpuTempUnavailable, Converter={StaticResource BoolToVis}}"/>
+
+                    <TextBlock Text="{loc:Tr Monitoring_EnableCpuTemp}" ToolTip="{loc:Tr Monitoring_EnableCpuTempTooltip}"
+                               Style="{StaticResource LabelText}" Margin="0,6,0,0" Cursor="Hand"
+                               TextDecorations="Underline" Foreground="{DynamicResource AccentBrush}"
+                               Visibility="{Binding ShowEnableCpuTemp, Converter={StaticResource BoolToVis}}"
+                               MouseLeftButtonUp="EnableCpuTemp_Click"/>
                 </StackPanel>
             </Border>
             <Border Style="{StaticResource CardBorder}" Margin="0,0,12,0">
                 <StackPanel>
-                    <TextBlock Text="RAM" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="{loc:Tr Monitoring_Ram}" Style="{StaticResource LabelText}"/>
                     <TextBlock Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10">
                         <Run Text="{Binding RamUsage, Mode=OneWay, StringFormat={}{0:0.0} %}"/>
                     </TextBlock>
                     <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding RamUsage, Mode=OneWay}" Foreground="{DynamicResource ChartRamBrush}"/>
-                    <TextBlock Style="{StaticResource LabelText}" Margin="0,6,0,0">
-                        <Run Text="{Binding RamUsedGB, Mode=OneWay, StringFormat={}{0:0.#} Go /}"/>
-                        <Run Text="{Binding RamTotalGB, Mode=OneWay, StringFormat={}{0:0.#} Go}"/>
-                    </TextBlock>
+                    <TextBlock Text="{Binding RamUsageText}" Style="{StaticResource LabelText}" Margin="0,6,0,0"/>
                 </StackPanel>
             </Border>
             <Border Style="{StaticResource CardBorder}" Margin="0,0,12,0">
                 <StackPanel>
-                    <TextBlock Text="Disque" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="{loc:Tr Monitoring_Disk}" Style="{StaticResource LabelText}"/>
                     <TextBlock Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10">
                         <Run Text="{Binding DiskUsage, Mode=OneWay, StringFormat={}{0:0.0} %}"/>
                     </TextBlock>
                     <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding DiskUsage, Mode=OneWay}" Foreground="{DynamicResource ChartDiskBrush}"/>
-                    <TextBlock Text="Activite disque" Style="{StaticResource LabelText}" Margin="0,6,0,0"/>
+                    <TextBlock Text="{loc:Tr Monitoring_DiskActivity}" Style="{StaticResource LabelText}" Margin="0,6,0,0"/>
                 </StackPanel>
             </Border>
             <Border Style="{StaticResource CardBorder}">
                 <StackPanel>
-                    <TextBlock Text="GPU" Style="{StaticResource LabelText}"/>
+                    <TextBlock Text="{loc:Tr Monitoring_Gpu}" Style="{StaticResource LabelText}"/>
                     <TextBlock Text="{Binding GpuUsage, Mode=OneWay, Converter={StaticResource NullableUsageConverter}}" Style="{StaticResource ValueText}" FontSize="22" Margin="0,4,0,10"/>
                     <ProgressBar Style="{StaticResource MetricProgressBar}" Value="{Binding GpuUsage, Mode=OneWay, FallbackValue=0, TargetNullValue=0}" Foreground="{DynamicResource ChartGpuBrush}"/>
                     <TextBlock Style="{StaticResource LabelText}" Margin="0,6,0,0"

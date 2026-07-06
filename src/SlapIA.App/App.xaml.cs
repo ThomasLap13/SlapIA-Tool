@@ -10,6 +10,10 @@ public partial class App : Application
 {
     public static ThemeService ThemeService { get; } = new();
 
+    /// <summary>Set by MainWindow once its TrayIconService exists, so ViewModels (e.g. for
+    /// threshold alerts) can show tray balloon notifications without a direct window reference.</summary>
+    public static TrayIconService? TrayIcon { get; set; }
+
     public App()
     {
         // Must run before anything else: handles install/uninstall/update hooks when this

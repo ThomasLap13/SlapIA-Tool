@@ -29,6 +29,7 @@ param(
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
 $appProject = Join-Path $root "src\SlapIA.App\SlapIA.App.csproj"
+$helperProject = Join-Path $root "src\SlapIA.SensorHelper\SlapIA.SensorHelper.csproj"
 $publishDir = Join-Path $root "packaging\publish"
 $releasesDir = Join-Path $root "packaging\Releases"
 $icon = Join-Path $root "packaging\Assets\app.ico"
@@ -53,6 +54,10 @@ Write-Host "==> Publication de l'application (self-contained win-x64)..." -Foreg
 if (Test-Path $publishDir) { Remove-Item $publishDir -Recurse -Force }
 dotnet publish $appProject -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -o $publishDir
 if ($LASTEXITCODE -ne 0) { throw "dotnet publish a echoue." }
+
+Write-Host "==> Publication du helper de capteurs (temperature CPU)..." -ForegroundColor Cyan
+dotnet publish $helperProject -c Release -r win-x64 --self-contained true -p:PublishSingleFile=false -o $publishDir
+if ($LASTEXITCODE -ne 0) { throw "dotnet publish (SensorHelper) a echoue." }
 
 Write-Host "==> Empaquetage avec vpk (Velopack)..." -ForegroundColor Cyan
 vpk pack `

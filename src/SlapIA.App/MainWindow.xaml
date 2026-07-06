@@ -6,6 +6,7 @@
         xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
         xmlns:vm="clr-namespace:SlapIA.App.ViewModels"
         xmlns:views="clr-namespace:SlapIA.App.Views"
+        xmlns:loc="clr-namespace:SlapIA.App.Services"
         mc:Ignorable="d"
         Title="SlapIA Tool" Height="740" Width="1180" MinHeight="580" MinWidth="960"
         Background="{DynamicResource AppBackgroundBrush}"
@@ -50,25 +51,56 @@
 
                 <StackPanel DockPanel.Dock="Bottom" Margin="16,12,16,0">
                     <Border BorderBrush="{DynamicResource DividerBrush}" BorderThickness="0,1,0,0" Margin="0,0,0,12"/>
-                    <Button Content="Verifier les mises a jour" Command="{Binding CheckForUpdatesCommand}"
+                    <Button Content="{loc:Tr Sidebar_CheckUpdates}" Command="{Binding CheckForUpdatesCommand}"
                             Style="{StaticResource PillButtonStyle}" HorizontalAlignment="Stretch"
                             Height="36" Padding="12,8" FontSize="12.5"
                             IsEnabled="{Binding IsCheckingForUpdate, Converter={StaticResource InverseBooleanConverter}}"/>
                     <TextBlock Text="{Binding UpdateStatus}" Style="{StaticResource LabelText}"
                                TextWrapping="Wrap" Margin="2,8,2,0"
                                Visibility="{Binding UpdateStatus, Converter={StaticResource StringToVisibilityConverter}}"/>
-                    <TextBlock Text="{Binding AppVersion}" Style="{StaticResource LabelText}" Margin="2,8,2,0" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding AppVersion}" Style="{StaticResource LabelText}" Margin="2,8,0,0" HorizontalAlignment="Center"/>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="2,10,2,0">
+                        <TextBlock Text="{loc:Tr Language_French}" Cursor="Hand" FontSize="11" Margin="0,0,10,0"
+                                   MouseLeftButtonUp="LanguageFr_Click">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource LabelText}">
+                                    <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentLanguage}" Value="fr">
+                                            <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="{loc:Tr Language_English}" Cursor="Hand" FontSize="11"
+                                   MouseLeftButtonUp="LanguageEn_Click">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource LabelText}">
+                                    <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Source={x:Static loc:LocalizationService.Instance}, Path=CurrentLanguage}" Value="en">
+                                            <Setter Property="Foreground" Value="{DynamicResource AccentBrush}"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </StackPanel>
                 </StackPanel>
 
                 <StackPanel Margin="0,0,0,0">
-                    <TextBlock Text="GENERAL" Style="{StaticResource LabelText}" Margin="24,0,0,8" FontSize="10.5" FontWeight="SemiBold"/>
+                    <TextBlock Text="{loc:Tr Sidebar_Section_General}" Style="{StaticResource LabelText}" Margin="24,0,0,8" FontSize="10.5" FontWeight="SemiBold"/>
 
                     <RadioButton GroupName="Nav" Style="{StaticResource NavButtonStyle}" Tag="overview"
                                  IsChecked="{Binding SelectedNavKey, Converter={StaticResource NavSelectionConverter}, ConverterParameter=overview, Mode=OneWay}"
                                  Command="{Binding NavigateOverviewCommand}" Checked="NavRadioButton_Checked" Margin="0,0,0,2">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource NavHomeIconGeometry}" Stroke="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=Foreground}" StrokeThickness="1.3" StrokeLineJoin="Round" Stretch="Uniform" Width="15" Height="15" Margin="0,0,10,0"/>
-                            <TextBlock Text="Vue d'ensemble" VerticalAlignment="Center"/>
+                            <TextBlock Text="{loc:Tr Nav_Overview}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </RadioButton>
 
@@ -77,7 +109,7 @@
                                  Command="{Binding NavigateHardwareCommand}" Checked="NavRadioButton_Checked" Margin="0,0,0,2">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource NavHardwareIconGeometry}" Stroke="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=Foreground}" StrokeThickness="1.3" StrokeLineJoin="Round" Stretch="Uniform" Width="15" Height="15" Margin="0,0,10,0"/>
-                            <TextBlock Text="Materiel" VerticalAlignment="Center"/>
+                            <TextBlock Text="{loc:Tr Nav_Hardware}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </RadioButton>
 
@@ -86,7 +118,7 @@
                                  Command="{Binding NavigateMonitoringCommand}" Checked="NavRadioButton_Checked" Margin="0,0,0,2">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource NavMonitoringIconGeometry}" Stroke="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=Foreground}" StrokeThickness="1.3" StrokeLineJoin="Round" StrokeStartLineCap="Round" StrokeEndLineCap="Round" Stretch="Uniform" Width="15" Height="15" Margin="0,0,10,0"/>
-                            <TextBlock Text="Monitoring" VerticalAlignment="Center"/>
+                            <TextBlock Text="{loc:Tr Nav_Monitoring}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </RadioButton>
 
@@ -95,7 +127,7 @@
                                  Command="{Binding NavigateSoftwareCommand}" Checked="NavRadioButton_Checked" Margin="0,0,0,2">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource NavSoftwareIconGeometry}" Stroke="{Binding RelativeSource={RelativeSource AncestorType=RadioButton}, Path=Foreground}" StrokeThickness="1.3" StrokeLineJoin="Round" Stretch="Uniform" Width="15" Height="15" Margin="0,0,10,0"/>
-                            <TextBlock Text="Logiciels installes" VerticalAlignment="Center"/>
+                            <TextBlock Text="{loc:Tr Nav_Software}" VerticalAlignment="Center"/>
                         </StackPanel>
                     </RadioButton>
                 </StackPanel>

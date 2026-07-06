@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+             xmlns:loc="clr-namespace:SlapIA.App.Services"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
 
     <Grid>
@@ -20,7 +21,7 @@
             <Grid Grid.Column="0" Width="320" HorizontalAlignment="Left">
                 <TextBox Style="{StaticResource SearchBoxStyle}"
                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
-                <TextBlock Text="Rechercher un logiciel..."
+                <TextBlock Text="{loc:Tr Software_SearchPlaceholder}"
                            IsHitTestVisible="False" Margin="12,0,0,0" VerticalAlignment="Center">
                     <TextBlock.Style>
                         <Style TargetType="TextBlock" BasedOn="{StaticResource LabelText}">
@@ -34,10 +35,7 @@
                     </TextBlock.Style>
                 </TextBlock>
             </Grid>
-            <TextBlock Grid.Column="1" VerticalAlignment="Center" Style="{StaticResource LabelText}">
-                <Run Text="{Binding Applications.Count, Mode=OneWay}"/><Run Text=" / "/>
-                <Run Text="{Binding TotalCount, Mode=OneWay}"/><Run Text=" logiciels"/>
-            </TextBlock>
+            <TextBlock Grid.Column="1" Text="{Binding CountText}" VerticalAlignment="Center" Style="{StaticResource LabelText}"/>
         </Grid>
 
         <Border Grid.Row="1" Style="{StaticResource CardBorder}" Padding="0">
@@ -46,10 +44,10 @@
                       ColumnHeaderStyle="{StaticResource SoftwareGridHeaderStyle}"
                       CellStyle="{StaticResource SoftwareGridCellStyle}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Nom" Binding="{Binding Name}" Width="2*"/>
-                    <DataGridTextColumn Header="Version" Binding="{Binding Version}" Width="*"/>
-                    <DataGridTextColumn Header="Editeur" Binding="{Binding Publisher}" Width="1.5*"/>
-                    <DataGridTextColumn Header="Installation" Binding="{Binding InstallDate, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
+                    <DataGridTextColumn Header="{loc:Tr Software_ColumnName}" Binding="{Binding Name}" Width="2*"/>
+                    <DataGridTextColumn Header="{loc:Tr Software_ColumnVersion}" Binding="{Binding Version}" Width="*"/>
+                    <DataGridTextColumn Header="{loc:Tr Software_ColumnPublisher}" Binding="{Binding Publisher}" Width="1.5*"/>
+                    <DataGridTextColumn Header="{loc:Tr Software_ColumnInstallDate}" Binding="{Binding InstallDate, StringFormat={}{0:dd/MM/yyyy}}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

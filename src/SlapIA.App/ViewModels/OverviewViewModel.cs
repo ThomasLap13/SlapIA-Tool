@@ -1,12 +1,16 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using SlapIA.App.Models;
 using SlapIA.App.Services;
 
 namespace SlapIA.App.ViewModels;
 
 public partial class OverviewViewModel : ObservableObject
 {
+    private static LocalizationService Loc => LocalizationService.Instance;
+
     private readonly ISystemInfoService _systemInfoService;
+    private SystemSnapshot? _snapshot;
 
     [ObservableProperty] private bool isLoading;
     [ObservableProperty] private string computerName = "-";
@@ -26,6 +30,7 @@ public partial class OverviewViewModel : ObservableObject
     public OverviewViewModel(ISystemInfoService systemInfoService)
     {
         _systemInfoService = systemInfoService;
+        Loc.PropertyChanged += (_, _) => ApplyLocalizedText();
     }
 
     [RelayCommand]
@@ -34,36 +39,8 @@ public partial class OverviewViewModel : ObservableObject
         IsLoading = true;
         try
         {
-            var snapshot = await _systemInfoService.GetSnapshotAsync(forceRefresh);
-
-            ComputerName = snapshot.OperatingSystem?.ComputerName ?? "-";
-            UserName = snapshot.OperatingSystem?.UserName ?? "-";
-            OsName = snapshot.OperatingSystem?.Name ?? "-";
-            OsVersion = snapshot.OperatingSystem?.Version ?? "-";
-            Uptime = FormatUptime(snapshot.OperatingSystem?.Uptime);
-            ProcessorName = snapshot.Processor?.Name ?? "-";
-            ProcessorDetails = snapshot.Processor is { } cpu
-                ? $"{cpu.Cores} coeurs / {cpu.LogicalProcessors} threads @ {cpu.MaxClockSpeedGHz:0.00} GHz"
-                : "-";
-            MemoryTotal = snapshot.Memory is { } mem
-                ? $"{mem.TotalGB:0.#} Go{(mem.MemoryType is null ? "" : $" ({mem.MemoryType})")}"
-                : "-";
-            MemoryDetails = snapshot.Memory is { } memDetails
-                ? $"{memDetails.ModuleCount} barrette(s){(memDetails.Manufacturer is { } man ? $" - {man}" : "")}{(memDetails.SpeedMHz is { } speed ? $" @ {speed} MHz" : "")}"
-                : "-";
-
-            var primaryGpu = snapshot.GraphicsCards.FirstOrDefault();
-            GraphicsCardName = primaryGpu?.Name ?? "-";
-            GraphicsCardDetails = primaryGpu?.VramGB is { } vram ? $"{vram:0.#} Go VRAM" : "-";
-
-            var mainVolume = snapshot.Volumes.FirstOrDefault();
-            PrimaryDisk = mainVolume is not null
-                ? $"{mainVolume.FreeGB:0.#} Go libres / {mainVolume.TotalGB:0.#} Go"
-                : "-";
-
-            Motherboard = snapshot.MotherboardManufacturer is null
-                ? "-"
-                : $"{snapshot.MotherboardManufacturer} {snapshot.MotherboardModel}".Trim();
+            _snapshot = await _systemInfoService.GetSnapshotAsync(forceRefresh);
+            ApplyLocalizedText();
         }
         finally
         {
@@ -71,12 +48,54 @@ public partial class OverviewViewModel : ObservableObject
         }
     }
 
+    /// <summary>(Re)formats every display string from the last-fetched snapshot. Called after
+    /// a load and again whenever the UI language changes, so labels never go stale.</summary>
+    private void ApplyLocalizedText()
+    {
+        var snapshot = _snapshot;
+        if (snapshot is null)
+            return;
+
+        ComputerName = snapshot.OperatingSystem?.ComputerName ?? "-";
+        UserName = snapshot.OperatingSystem?.UserName ?? "-";
+        OsName = snapshot.OperatingSystem?.Name ?? "-";
+        OsVersion = snapshot.OperatingSystem?.Version ?? "-";
+        Uptime = FormatUptime(snapshot.OperatingSystem?.Uptime);
+        ProcessorName = snapshot.Processor?.Name ?? "-";
+        ProcessorDetails = snapshot.Processor is { } cpu
+            ? string.Format(Loc["Hardware_CoresThreads"], cpu.Cores, cpu.LogicalProcessors, cpu.MaxClockSpeedGHz)
+            : "-";
+        MemoryTotal = snapshot.Memory is { } mem
+            ? mem.MemoryType is null
+                ? string.Format(Loc["Overview_MemoryTotalPlain"], mem.TotalGB)
+                : string.Format(Loc["Overview_MemoryTotalWithType"], mem.TotalGB, mem.MemoryType)
+            : "-";
+        MemoryDetails = snapshot.Memory is { } memDetails
+            ? string.Format(Loc["Overview_MemoryModules"], memDetails.ModuleCount)
+                + (memDetails.Manufacturer is { } man ? $" - {man}" : "")
+                + (memDetails.SpeedMHz is { } speed ? $" @ {speed} MHz" : "")
+            : "-";
+
+        var primaryGpu = snapshot.GraphicsCards.FirstOrDefault();
+        GraphicsCardName = primaryGpu?.Name ?? "-";
+        GraphicsCardDetails = primaryGpu?.VramGB is { } vram ? string.Format(Loc["Hardware_VramFormat"], vram) : "-";
+
+        var mainVolume = snapshot.Volumes.FirstOrDefault();
+        PrimaryDisk = mainVolume is not null
+            ? string.Format(Loc["Overview_FreeOf"], mainVolume.FreeGB, mainVolume.TotalGB)
+            : "-";
+
+        Motherboard = snapshot.MotherboardManufacturer is null
+            ? "-"
+            : $"{snapshot.MotherboardManufacturer} {snapshot.MotherboardModel}".Trim();
+    }
+
     private static string FormatUptime(TimeSpan? uptime)
     {
         if (uptime is not { } value || value <= TimeSpan.Zero)
             return "-";
         return value.Days > 0
-            ? $"{value.Days} j {value.Hours} h {value.Minutes} min"
-            : $"{value.Hours} h {value.Minutes} min";
+            ? string.Format(Loc["Overview_Uptime_Days"], value.Days, value.Hours, value.Minutes)
+            : string.Format(Loc["Overview_Uptime_Hours"], value.Hours, value.Minutes);
     }
 }

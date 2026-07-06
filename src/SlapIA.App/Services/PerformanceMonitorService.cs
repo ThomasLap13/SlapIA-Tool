@@ -239,6 +239,11 @@ public class PerformanceMonitorService : IPerformanceMonitorService
             // Best-effort only; keep whatever was already read.
         }
 
+        // This process deliberately never runs elevated (see SensorHelperClient), so the CPU
+        // package sensor above is normally unavailable; fall back to the value published by
+        // the separate elevated helper, if the user has started it and it's still running.
+        cpuTemp ??= SensorHelperClient.TryReadCpuTemperature();
+
         return (cpuTemp, gpuTemp);
     }
 

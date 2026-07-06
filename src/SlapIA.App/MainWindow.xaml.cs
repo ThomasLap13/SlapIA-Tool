@@ -20,6 +20,7 @@ public partial class MainWindow : Window
             MicaService.Apply(this, App.ThemeService.CurrentTheme == AppTheme.Dark);
 
         _trayIconService = new TrayIconService(this, ExitFromTray);
+        App.TrayIcon = _trayIconService;
         Closing += MainWindow_Closing;
         Closed += (_, _) =>
         {
@@ -51,4 +52,10 @@ public partial class MainWindow : Window
         if (sender is RadioButton { Tag: string key })
             _viewModel.NavigateByKey(key);
     }
+
+    private void LanguageFr_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        => LocalizationService.Instance.SetLanguage(LocalizationService.French);
+
+    private void LanguageEn_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        => LocalizationService.Instance.SetLanguage(LocalizationService.English);
 }

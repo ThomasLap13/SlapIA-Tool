@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+  <!--
+    This helper only exists to read CPU/GPU temperature sensors via LibreHardwareMonitorLib,
+    which requires administrator rights (its WinRing0 kernel driver can't load otherwise). The
+    main SlapIA.Tool.exe deliberately stays unelevated (Velopack's silent self-update relies on
+    that), so this small separate process is launched on demand, elevated, instead.
+  -->
+  <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
+    <security>
+      <requestedPrivileges>
+        <requestedExecutionLevel level="requireAdministrator" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+</assembly>

@@ -40,6 +40,14 @@ public class TrayIconService : IDisposable
         _window.Activate();
     }
 
+    /// <summary>Shows a Windows notification-area balloon (e.g. for CPU/GPU threshold alerts).</summary>
+    public void ShowBalloon(string title, string text)
+    {
+        _notifyIcon.BalloonTipTitle = title;
+        _notifyIcon.BalloonTipText = text;
+        _notifyIcon.ShowBalloonTip(5000);
+    }
+
     public void Dispose()
     {
         _notifyIcon.Visible = false;

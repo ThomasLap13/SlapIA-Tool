@@ -8,6 +8,8 @@ namespace SlapIA.App.ViewModels;
 
 public partial class SoftwareViewModel : ObservableObject
 {
+    private static LocalizationService Loc => LocalizationService.Instance;
+
     private readonly IInstalledSoftwareService _softwareService;
     private List<InstalledApplication> _allApps = new();
 
@@ -16,9 +18,12 @@ public partial class SoftwareViewModel : ObservableObject
     [ObservableProperty] private ObservableCollection<InstalledApplication> applications = new();
     [ObservableProperty] private int totalCount;
 
+    public string CountText => string.Format(Loc["Software_Count"], Applications.Count, TotalCount);
+
     public SoftwareViewModel(IInstalledSoftwareService softwareService)
     {
         _softwareService = softwareService;
+        Loc.PropertyChanged += (_, _) => OnPropertyChanged(nameof(CountText));
     }
 
     [RelayCommand]
@@ -41,6 +46,10 @@ public partial class SoftwareViewModel : ObservableObject
     }
 
     partial void OnSearchTextChanged(string value) => ApplyFilter();
+
+    partial void OnApplicationsChanged(ObservableCollection<InstalledApplication> value) => OnPropertyChanged(nameof(CountText));
+
+    partial void OnTotalCountChanged(int value) => OnPropertyChanged(nameof(CountText));
 
     private void ApplyFilter()
     {
