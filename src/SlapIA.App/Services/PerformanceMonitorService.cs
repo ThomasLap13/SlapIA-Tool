@@ -256,7 +256,9 @@ public class PerformanceMonitorService : IPerformanceMonitorService
         var totalGb = status.ullTotalPhys / 1024f / 1024 / 1024;
         var availGb = status.ullAvailPhys / 1024f / 1024 / 1024;
         var usedGb = totalGb - availGb;
-        var percent = totalGb > 0 ? usedGb / totalGb * 100f : 0f;
+        // dwMemoryLoad is Windows' own memory-load percentage - the exact figure Task Manager
+        // shows, and it can differ slightly from a naive usedGb/totalGb ratio.
+        var percent = (float)status.dwMemoryLoad;
         return (totalGb, usedGb, percent);
     }
 

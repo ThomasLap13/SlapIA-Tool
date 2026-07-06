@@ -57,32 +57,39 @@ public partial class MonitoringViewModel : ObservableObject, IDisposable
 
     public string RamUsageText => string.Format(Loc["Monitoring_UsedOfTotal"], RamUsedGB, RamTotalGB);
 
-    [ObservableProperty] private ISeries[] series = Array.Empty<ISeries>();
-    public Axis[] YAxes { get; } = { new Axis { MinLimit = 0, MaxLimit = 100, Name = "%" } };
+    // Four independent graphs (like Task Manager's Performance tab), each scaled to what
+    // actually makes that metric readable: CPU/Disk/GPU are 0-100% (they swing widely), RAM is
+    // plotted in GB used against a 0-installed-RAM scale (a %-of-total view is nearly flat on a
+    // high-RAM machine, and Task Manager itself graphs memory in GB, not percent).
+    public ISeries[] CpuSeries { get; }
+    public ISeries[] RamSeries { get; }
+    public ISeries[] DiskSeries { get; }
+    public ISeries[] GpuSeries { get; }
+
+    public Axis[] CpuYAxes { get; } = { new Axis { MinLimit = 0, MaxLimit = 100, IsVisible = false } };
+    public Axis[] DiskYAxes { get; } = { new Axis { MinLimit = 0, MaxLimit = 100, IsVisible = false } };
+    public Axis[] GpuYAxes { get; } = { new Axis { MinLimit = 0, MaxLimit = 100, IsVisible = false } };
+    public Axis[] RamYAxes { get; } = { new Axis { MinLimit = 0, MaxLimit = 1, IsVisible = false } };
     public Axis[] XAxes { get; } = { new Axis { IsVisible = false } };
 
     public MonitoringViewModel(IPerformanceMonitorService perf)
     {
         _perf = perf;
-        BuildLocalizedSeries();
+
+        CpuSeries = new ISeries[] { BuildSeries(_cpuValues, Loc["Monitoring_ChartCpu"], "#0078D4") };
+        RamSeries = new ISeries[] { BuildSeries(_ramValues, Loc["Monitoring_ChartRam"], "#0F7B0F") };
+        DiskSeries = new ISeries[] { BuildSeries(_diskValues, Loc["Monitoring_ChartDisk"], "#CA5010") };
+        GpuSeries = new ISeries[] { BuildSeries(_gpuValues, Loc["Monitoring_ChartGpu"], "#8764B8") };
+
         Loc.PropertyChanged += (_, _) =>
         {
-            BuildLocalizedSeries();
+            // Series.Name only feeds tooltips here (legends are drawn as plain labels in the
+            // XAML header, not LiveChartsCore's own legend), so a live in-place update is enough.
+            CpuSeries[0].Name = Loc["Monitoring_ChartCpu"];
+            RamSeries[0].Name = Loc["Monitoring_ChartRam"];
+            DiskSeries[0].Name = Loc["Monitoring_ChartDisk"];
+            GpuSeries[0].Name = Loc["Monitoring_ChartGpu"];
             OnPropertyChanged(nameof(RamUsageText));
-        };
-    }
-
-    /// <summary>(Re)creates the series wrapping the same live value collections, just with
-    /// names in the current language - called once at startup and again on language switch,
-    /// since LiveChartsCore's legend doesn't refresh from an in-place Name mutation.</summary>
-    private void BuildLocalizedSeries()
-    {
-        Series = new ISeries[]
-        {
-            BuildSeries(_cpuValues, Loc["Monitoring_ChartCpu"], "#0078D4"),
-            BuildSeries(_ramValues, Loc["Monitoring_ChartRam"], "#0F7B0F"),
-            BuildSeries(_diskValues, Loc["Monitoring_ChartDisk"], "#CA5010"),
-            BuildSeries(_gpuValues, Loc["Monitoring_ChartGpu"], "#8764B8"),
         };
     }
 
@@ -156,8 +163,11 @@ public partial class MonitoringViewModel : ObservableObject, IDisposable
         OnPropertyChanged(nameof(ShowCpuTempUnavailable));
         OnPropertyChanged(nameof(RamUsageText));
 
+        if (sample.RamTotalGB > 0)
+            RamYAxes[0].MaxLimit = sample.RamTotalGB;
+
         AddPoint(_cpuValues, sample.CpuUsagePercent);
-        AddPoint(_ramValues, sample.RamUsagePercent);
+        AddPoint(_ramValues, sample.RamUsedGB);
         AddPoint(_diskValues, sample.DiskUsagePercent);
         AddPoint(_gpuValues, sample.GpuUsagePercent ?? 0);
 

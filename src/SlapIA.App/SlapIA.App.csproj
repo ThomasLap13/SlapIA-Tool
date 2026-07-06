@@ -38,4 +38,20 @@
     <PackageReference Include="WPF-UI" Version="4.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Build-order dependency only (SensorHelperClient looks for the .exe by file name next
+         to this app's own output, not by assembly reference), so no compile-time reference. -->
+    <ProjectReference Include="..\SlapIA.SensorHelper\SlapIA.SensorHelper.csproj" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <!-- Copies the sensor helper's build output next to SlapIA.Tool.exe for every local build/run
+       (F5, dotnet run, dotnet build), not just the packaged release - build-installer.ps1
+       separately publishes it for Release/self-contained packaging. -->
+  <Target Name="CopySensorHelper" AfterTargets="Build">
+    <ItemGroup>
+      <SensorHelperFiles Include="..\SlapIA.SensorHelper\bin\$(Configuration)\net8.0-windows\SlapIA.SensorHelper.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(SensorHelperFiles)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" />
+  </Target>
+
 </Project>

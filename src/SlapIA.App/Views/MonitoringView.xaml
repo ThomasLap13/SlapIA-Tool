@@ -68,9 +68,51 @@
             </Border>
         </UniformGrid>
 
-        <Border Grid.Row="1" Style="{StaticResource CardBorder}">
-            <lvc:CartesianChart Series="{Binding Series}" XAxes="{Binding XAxes}" YAxes="{Binding YAxes}"
-                                 LegendPosition="Top" TooltipPosition="Hidden" AnimationsSpeed="0:0:0.15"/>
-        </Border>
+        <UniformGrid Grid.Row="1" Columns="2" Rows="2">
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,12,12">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{loc:Tr Monitoring_ChartCpu}" Style="{StaticResource SectionTitleText}" Margin="0,0,0,8"/>
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding CpuSeries}" XAxes="{Binding XAxes}" YAxes="{Binding CpuYAxes}"
+                                         TooltipPosition="Hidden" AnimationsSpeed="0:0:0.15"/>
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,0,12">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{loc:Tr Monitoring_ChartRam}" Style="{StaticResource SectionTitleText}" Margin="0,0,0,8"/>
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding RamSeries}" XAxes="{Binding XAxes}" YAxes="{Binding RamYAxes}"
+                                         TooltipPosition="Hidden" AnimationsSpeed="0:0:0.15"/>
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource CardBorder}" Margin="0,0,12,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{loc:Tr Monitoring_ChartDisk}" Style="{StaticResource SectionTitleText}" Margin="0,0,0,8"/>
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding DiskSeries}" XAxes="{Binding XAxes}" YAxes="{Binding DiskYAxes}"
+                                         TooltipPosition="Hidden" AnimationsSpeed="0:0:0.15"/>
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource CardBorder}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="{loc:Tr Monitoring_ChartGpu}" Style="{StaticResource SectionTitleText}" Margin="0,0,0,8"/>
+                    <lvc:CartesianChart Grid.Row="1" Series="{Binding GpuSeries}" XAxes="{Binding XAxes}" YAxes="{Binding GpuYAxes}"
+                                         TooltipPosition="Hidden" AnimationsSpeed="0:0:0.15"/>
+                </Grid>
+            </Border>
+        </UniformGrid>
     </Grid>
 </UserControl>
